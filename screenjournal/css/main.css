@@ -93,9 +93,16 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+img{
+  padding-bottom: 1em;
+  float: left;
+}
 
-
-
+body
+{
+  background-color: #a0c0f0;
+  padding-left: 1em;
+}
 
 
 
