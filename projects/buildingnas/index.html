@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="/favicon.png">
+
+<title>Building NAS</title>
+
+<!-- Bootstrap core CSS -->
+<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="/jumbotron.css" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> &nbsp; raspi@GitHub</a>
+                </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/projects"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> &nbsp; Projects</a></li>
+                    </ul>
+                </div>
+        </nav>
+
+        <!-- Main jumbotron for a primary marketing message or call to action -->
+        <!-- <div class="jumbotron">
+          <div class="container">
+            <h1>Hello, world!</h1>
+            <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+            <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+          </div>
+        </div> -->
+
+        <div class="container">
+
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- Mainos -->
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:728px;height:90px"
+                 data-ad-client="ca-pub-5396746781472027"
+                 data-ad-slot="6167495996"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+
+            <br />
+
+                <h1>Building NAS for home use with ZFS</h1>
+
+<p><strong>(under construction)</strong></p>
+
+<p>If there are any misinformation please send me feedback at <a href="https://github.com/raspi/BuildingNAS/issues">GitHub issue</a> page.</p>
+
+<p>First off: <strong>RAID IS NOT A BACKUP!</strong></p>
+
+<p>How to build your own NAS for home use which doesn't break immediately? What type of hazards are there?</p>
+
+<h1>Setup</h1>
+
+<ul>
+<li>No hardware RAID</li>
+<li>ZFS as filesystem</li>
+<li>FreeBSD as operating system</li>
+<li>RaidZ2 (aka RAID6) (2 drives can fail) or RaidZ3 (3 drives can fail)</li>
+<li>ECC RAM used to eliminate point of failure and finding memory errors  </li>
+<li>Redundant power supply</li>
+<li>Multiple SAS controllers against data loss</li>
+<li>Rack mount case with 24 x 3.5" bays</li>
+<li>UPSes for PSUs</li>
+<li>OS boot drive is seperated</li>
+<li>Good quality components</li>
+</ul>
+
+<h1>Outside hazards</h1>
+
+<ul>
+<li>Thunderstorm</li>
+<li>Power loss</li>
+<li>Fire</li>
+<li>Water</li>
+<li>Humidity</li>
+<li>Room too hot</li>
+<li>Room too cold</li>
+</ul>
+
+<h1>Hardware hazards</h1>
+
+<ul>
+<li>Cheap components</li>
+<li>PSU failure</li>
+<li>Motherboard failure</li>
+<li>Cheap SAS cables</li>
+<li>SAS/SATA expander card failure</li>
+<li>SAS/SATA controller card failure</li>
+<li>Backplane failure</li>
+<li>Hard drive failure</li>
+<li>Not knowing about harware what is used</li>
+<li>Dust </li>
+<li>Moisture</li>
+</ul>
+
+<h1>Software hazards</h1>
+
+<ul>
+<li>Viruses</li>
+<li>Malware</li>
+<li>No backup</li>
+<li>Accidental file deletion</li>
+<li>Accidental system commands on wrong computer</li>
+<li>Not knowing about software what is used</li>
+<li>Adding too many drives to one zpool</li>
+</ul>
+
+<h1>Hardware setup</h1>
+
+<ul>
+<li>Motherboard</li>
+<li>ECC RAM</li>
+<li>CPU(s) supporting ECC RAM</li>
+<li>3 (or more) x SAS expander cards (1 x MiniSAS port for backplane which has 4 slots for SAS/SATA HDDs)
+
+<ul>
+<li>RAID6 can lose 2 HDDs</li>
+<li>Each drive are in different zpool per backplane so there are 4 different zpools or vdevs</li>
+<li>If one controller or expander card breaks then 2 backplanes are lost which is recoverable, as each zpool or vdev will lose 2 drives at once (8 drives total)</li>
+</ul></li>
+<li>PSUs connected to two different UPSes against power loss</li>
+<li>Extra spare drive(s) against HDD failure</li>
+<li>SSD drive or USB stick for OS</li>
+</ul>
+
+<h1>What to monitor</h1>
+
+<ul>
+<li>HDD SMART data</li>
+<li>HDD temperatures</li>
+<li>ZFS pool status</li>
+<li>ZFS scrub status</li>
+<li>Motherboard temperature</li>
+<li>CPU(s) temperature</li>
+<li>UPS battery</li>
+<li>UPS temperature</li>
+</ul>
+
+<h1>Regular maintenance</h1>
+
+<ul>
+<li>ZFS scrub</li>
+<li>SMART tests</li>
+<li>Backup checking 
+
+<ul>
+<li>Restore process</li>
+</ul></li>
+<li>I/O performance check</li>
+<li>Remove dust from drive bays, CPU heatsink(s), motherboard heatsink(s), PSU(s) and cards</li>
+</ul>
+
+<h1>Non-regular maintenance</h1>
+
+<ul>
+<li>RAM check</li>
+<li>Change PSU(s)</li>
+<li>Update BIOS</li>
+<li>Update HW firmware</li>
+<li>Change 3-4+ year old hard drives to new ones</li>
+<li>Change UPS battery</li>
+</ul>
+
+<h1>Why ECC memory?</h1>
+
+<p>Your data needs to be written only once to storage as broken and then it will be broken forever. ECC memory protects against this type of corruption. RAM component(s) running too hot will also cause data corruption.</p>
+
+<h1>Why hardware RAID is bad?</h1>
+
+<ul>
+<li>Hardware RAID doesn't protect against bit rot aka silent corruption
+
+<ul>
+<li>Over the years disks will return wrong data</li>
+<li>In ZFS when data is written to disk, also a checksum is written. ZFS scrub checks the data against the checksum and will know if file content is broken. ZFS will correct this problem silently without the need for any additional tools. Same silent fixing will happen if user just reads data and scrub isn't running. This is why ECC RAM is so important.</li>
+</ul></li>
+<li>Raw passthrough to drives is often limited or prohibited completely or you have to use card manufacturer's own tools 
+
+<ul>
+<li>SMART data is very useful for getting information of early failure</li>
+<li>All SCSI commands should pass so that OS can provide you with all information in failure cases</li>
+</ul></li>
+<li>Some RAID levels use propietary algorithms (usually RAID6 and some others too)
+
+<ul>
+<li>Example: Card dies and card manufacturer has gone bankrupt; you can't access the data with other manufacturer's RAID card because the algorithm used is different</li>
+</ul></li>
+<li>Information written to disks is propietary
+
+<ul>
+<li>You can't access the disk with other manufacturer's card</li>
+</ul></li>
+<li>Information written to disks is location aware in some cards
+
+<ul>
+<li>Example: moving drive from bay #1 to #2 and vice versa, then card may think that everything is broken</li>
+</ul></li>
+<li>After changing to new drive after failure the whole disk is written full of data and rebuilding may take days to complete
+
+<ul>
+<li>ZFS equivalent, resilvering, only writes necessary used data to new drive and is much faster</li>
+</ul></li>
+<li>Hard to add new drives</li>
+<li>Configuring array might need booting to card's own configuration utility</li>
+<li>If power loss occurs when using for example RAID 5 and card's battery has died (or even worse: there's no battery) whole array will go out of sync and may not be recoverable or might need full rebuild which again may take many days</li>
+</ul>
+
+<h1>Hard drives</h1>
+
+<ul>
+<li>Hard disks will break sooner if temperature changes too much</li>
+<li>SAS drives are better for retrying failed data access; SATA drives usually freezes the whole system</li>
+</ul>
+
+<h1>Why you must use UPS (Uninterruptible Power Supply)</h1>
+
+<p>All modern hard drives contains caching. Almost all hard drive manufacturers build hard drives so that it lies to the operating system that data is written. So operating system and filesystem will mark data as written but in actuality it is still in writing process to the hard drive from cache. If power loss occurs at this writing time the data is lost. UPS gives hard drive time to finish writing this data to the disk. In some drives you can disable caching. This makes the disk very slow to write to. Also depending on your SAS/SATA controller, expander and backplane it is possible that some of these components blocks sending all instructions to hard drives. Most common one is that SMART data is blocked. So check that all your components can send and receive raw hard drive data before buying components.</p>
+
+<h1>Good to have</h1>
+
+<ul>
+<li>IPMI or other remote support in motherboard so that you can configure BIOS/UEFI remotely and mount ISO images from local computer</li>
+</ul>
+
+<h1>What to check for possible problems</h1>
+
+<h2>Buying hardware</h2>
+
+<ul>
+<li>Product is not genuine
+
+<ul>
+<li>Example: cheap "new" LSI 9211-8i HBA's from China on ebay aren't usually genuine hardware and may have issues</li>
+<li>Serial number might not be valid, so ask for serial number to confirm genuine product from manufacturer</li>
+</ul></li>
+<li>Wrong kind of product
+
+<ul>
+<li>SAS breakout cables used for drives and controller looks alike but are different
+
+<ul>
+<li><strong>Forward</strong> breakout cable for connecting SATA connectors to <strong>drives</strong></li>
+<li><strong>Reverse</strong> breakout cable for connecting SATA connectors to <strong>SAS controller</strong></li>
+</ul></li>
+<li>Incompatible motherboard for enclosure  </li>
+<li>Incompatible PSU for enclosure </li>
+</ul></li>
+<li>Check options
+
+<ul>
+<li>Check for bracket option(s) for bigger fan(s)      </li>
+</ul></li>
+<li>Check space 
+
+<ul>
+<li>Unable to close enclosure because heatsink or fan is too big    </li>
+</ul></li>
+</ul>
+
+<h2>SAS Controllers</h2>
+
+<ul>
+<li>Some controllers may be limiting hard drive sizes
+
+<ul>
+<li>Example: LSI 1068E limits drive size to 2 TB</li>
+</ul></li>
+<li>Some controllers may be limiting total size beeing seen of connected drives to for example 256 TB max</li>
+<li>Some controllers may not work on higher speed PCI-e or other slot</li>
+<li>Some controllers may not work on lower speed PCI-e or other slot</li>
+<li>Some controllers may not work if the motherboard is not from same manufacturer
+
+<ul>
+<li>Example: Dell H310 may need certain pins on PCI-e slot to be blocked</li>
+</ul></li>
+<li>Some controllers may not support hot-swap</li>
+<li>Some controller may be incompatible with operating system or operating system's version</li>
+<li>Some controller's firmware may be incompatible with operating system or operating system's version</li>
+<li>Cable may be faulty</li>
+<li>Cable going to expander or backplane might be wrong type</li>
+<li>Controller may be overheating</li>
+</ul>
+
+<h2>SAS Expanders</h2>
+
+<ul>
+<li>Some expanders may be limiting hard drive sizes to for example 2 TB max</li>
+<li>Some expanders may be limiting total size beeing seen of connected drives to for example 256 TB max</li>
+<li>Some expanders may not work on higher speed PCI-e or other slot</li>
+<li>Some expanders may not work on lower speed PCI-e or other slot</li>
+<li>Some expanders may not work on non-manufacturer motherboard</li>
+<li>Some expanders may need controller from the same manufacturer for you to be able to update the expander card's firmware</li>
+<li>Some expanders may not support hot-swap </li>
+<li>Some expanders may not support double bandwidth (two cables from expander to controller) if the controller's manufacturer is not the same as expanders</li>
+<li>Cable may be faulty</li>
+<li>Cable going to backplane or controller might be wrong type</li>
+<li>Expander may be overheating</li>
+</ul>
+
+<h2>Backplanes</h2>
+
+<ul>
+<li>Backplane may not receive enough power from PSU's power rail</li>
+<li>Some backplanes may have SAS expander(s) built-in</li>
+<li>Some backplanes may not support SATA hard drives, only SAS drives</li>
+<li>Some backplanes may not support hot-swap</li>
+<li>Cable might be faulty</li>
+<li>Cable going to SAS Expander or controller might be wrong type</li>
+</ul>
+
+<h2>Hard drives</h2>
+
+<ul>
+<li>Some drives may have faulty firmware
+
+<ul>
+<li>Example: Samsung HD155UI and HD204UI drive writes corrupted data to the disk if SMART data is being read at the same time</li>
+</ul></li>
+<li>Drives are connected to backplane so that controller or expander failure can corrupt the whole pool</li>
+<li>Drives that have been spinning for years may not be able to start spinning again after spin down</li>
+<li>Drive may be overheating</li>
+<li>Rarely brand new drive might die after just a few days or hours or not work at all</li>
+<li>Some drives may have different sector counts
+
+<ul>
+<li>Example: replacing failed 2 TB drive with new 2 TB drive from different manufacturer fails because it has less sectors than rest of the drives    </li>
+</ul></li>
+</ul>
+
+<h2>Operating system</h2>
+
+<ul>
+<li>OS may have driver bug for SAS controller</li>
+<li>OS may have driver bug for SAS controller's firmware</li>
+<li>ZFS implementation might have a bug</li>
+</ul>
+
+<h2>Motherboard</h2>
+
+<ul>
+<li>Motherboard may have IRQ conflict issue that hangs computer or slows it down</li>
+</ul>
+
+<h2>Power Supply Unit (PSU)</h2>
+
+<ul>
+<li>PSUs will lose power capacity over time</li>
+<li>PSU close to full capacity will degrade faster </li>
+</ul>
+
+<h2>Uninterruptible Power Supply (UPS)</h2>
+
+<ul>
+<li>UPS close to full capacity will wear out battery/batteries and UPS' own PSU faster </li>
+</ul>
+
+<h2>Fan noise</h2>
+
+<ul>
+<li>Rackmount enclosures are usually shipped with "turbine" fans</li>
+<li>Some enclosures may have temperature sensors built-in where fans are plugged in </li>
+</ul>
+
+<h2>Enclosure</h2>
+
+<ul>
+<li>Space between CPU and enclosure might be too small for heatsink or fan 
+
+<ul>
+<li>Example: Noctua NH-D14 SE2011 is too big for 4U enclosure </li>
+</ul></li>
+</ul>
+
+<h1>RAID levels</h1>
+
+<h2>RAID 0</h2>
+
+<p>The zero stands for how many files you will recover if any of the drives fails. Do not use.</p>
+
+<h2>Mirror aka RAID 1</h2>
+
+<p>Two or more disks will have exact copy of one disk. Recommended.</p>
+
+<h2>RAIDz aka RAID 5</h2>
+
+<p>Do not use raidz aka RAID5. It is just not worth it. After one drive fails and new is inserted it is quite common to see another drive break during resilvering (rebuilding). If you calculate amount of hard drive cost versus time spent used trying to fix and probably lose whole raidz pool the extra drive's cost is very quickly paid back. Also include the time it takes to transfer the files from backup to new pool.</p>
+
+<h2>RAIDz2 aka RAID 6</h2>
+
+<p>Two drives can fail. Recommended.</p>
+
+<h1>Other notes</h1>
+
+<h2>Samba aka CIFS aka Windows share</h2>
+
+<ul>
+<li>It is adviced to use <code>recycle</code> VFS object in the config file as it will move deleted files to other directory and thus prevents accidental file deletions
+
+<ul>
+<li>Remember to test it!</li>
+</ul></li>
+<li>You can block some files by using <code>veto files</code> option in the samba config file
+
+<ul>
+<li>Example: Windows <code>Thumbs.db</code> files </li>
+</ul></li>
+</ul>
+
+<h2>Network card and bandwidth</h2>
+
+<ul>
+<li>If you want more than 1 Gbps speed with multiple 1 Gbps cards for example between NAS - network switch - your PC then your NAS, switch and PC must support link aggregation (<a href="https://en.wikipedia.org/wiki/Link_aggregation">LACP</a>)
+
+<ul>
+<li>Depending on the NIC and OS used the NICs usually have to be same cards from same manufacturer</li>
+<li>Using LACP at home is not recommended, it's not worth the hassle</li>
+<li>Buying cheap used 10 Gigabit ethernet adapter and putting one in NAS and the other to the machine needing the bandwidth will be usually easier to setup than LACP</li>
+</ul></li>
+</ul>
+
+<h1>Links</h1>
+
+<ul>
+<li><a href="http://www.solarisinternals.com/wiki/index.php/ZFS_Best_Practices_Guide">http://www.solarisinternals.com/wiki/index.php/ZFS_Best_Practices_Guide</a></li>
+<li><a href="http://arstechnica.com/information-technology/2014/01/bitrot-and-atomic-cows-inside-next-gen-filesystems/">http://arstechnica.com/information-technology/2014/01/bitrot-and-atomic-cows-inside-next-gen-filesystems/</a></li>
+<li><a href="https://static.googleusercontent.com/media/research.google.com/fi//archive/disk_failures.pdf">https://static.googleusercontent.com/media/research.google.com/fi//archive/disk_failures.pdf</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Data_degradation">https://en.wikipedia.org/wiki/Data_degradation</a></li>
+<li><a href="https://www.youtube.com/watch?v=yAuEgepZG_8">https://www.youtube.com/watch?v=yAuEgepZG_8</a></li>
+<li><a href="http://www.zdnet.com/article/why-raid-5-stops-working-in-2009/">http://www.zdnet.com/article/why-raid-5-stops-working-in-2009/</a></li>
+<li><a href="http://www.zdnet.com/article/why-raid-6-stops-working-in-2019/">http://www.zdnet.com/article/why-raid-6-stops-working-in-2019/</a></li>
+</ul>
+
+<hr />
+
+<p>This page was last updated on 2016-05-25T17:27:42+0300.</p>
+
+
+
+            <hr>
+
+            <footer>
+                <p>&copy; <a href='http://raspi.fi/'>Pekka "raspi" Järvinen</a></p>
+            </footer>
+
+        </div> <!-- /container -->
+
+
+
+        <script>
+            var _gaq = [['_setAccount', 'UA-37317362-1'], ['_trackPageview']];
+            (function (d, t) {
+                var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+                g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
+                s.parentNode.insertBefore(g, s)
+            }(document, 'script'));
+        </script>        
+
+    </body>
+</html>
+
