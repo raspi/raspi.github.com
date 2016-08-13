@@ -10,7 +10,7 @@
 <meta name="author" content="Pekka Järvinen">
 <link rel="icon" href="/favicon.png">
 
-<title>My projects</title>
+<title>Hard disk drive</title>
 
 <!-- Bootstrap core CSS -->
 <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -57,54 +57,79 @@
 
             <br />
 
-                <div class="page-header">
-    <h1><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> My projects</h1>
-    <p>My <a href='https://github.com/raspi'>GitHub</a> page contains more projects.</p>
-</div>
+                <p><!-- Dojo -->
+<script src="//ajax.googleapis.com/ajax/libs/dojo/1.11.2/dojo/dojo.js"></script></p>
 
-<div class="row">
-        <div class="col-md-5 project-box">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <h3><a href="/projects/uptime"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> &nbsp; Uptime and downtime SLA </a></h3>
-                <p>How long service can be down with certain % SLA?</p>
-            </div>
-        </div>
-    </div>
-        <div class="col-md-5 project-box">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <h3><a href="/projects/buildingnas"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> &nbsp; Building NAS</a></h3>
-                <p>How to build your own NAS for home use which doesn't break immediately</p>
-            </div>
-        </div>
-    </div>
-        <div class="col-md-5 project-box">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <h3><a href="/projects/screenjournal"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> &nbsp; ScreenJournal</a></h3>
-                <p>ScreenJournal is tiny Windows program that takes screenshots in certain intervals to help track your work day.</p>
-            </div>
-        </div>
-    </div>
-        <div class="col-md-5 project-box">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <h3><a href="/projects/winlldpservice"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> &nbsp; WinLLDPService</a></h3>
-                <p>WinLLDPService is free, open source and tiny Windows service. It sends Windows' machine network information via LLDP so that network administrators can find computers with ease.</p>
-            </div>
-        </div>
-    </div>
-        <div class="col-md-5 project-box">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <h3><a href="/projects/hdsize"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> &nbsp; Hard disk drive</a></h3>
-                <p>How much disk space you lose due to mismarketing</p>
-            </div>
-        </div>
-    </div>
-    </div>
+<script type="text/javascript">
+require(["dojo/dom-construct", "dojo/number", "dojo/domReady!"],
 
+function (domConstruct, number) {
+    var sizes = [1, 2, 4, 8, 16, 32, 64, 128, 1000, 2000, 4000, 6000, 8000, 16000, 32000];
+
+    var html = "<table class='table table-striped table-hover'>\n";
+
+    html += "<thead>";
+    html += "<tr>";
+    html += "  <td>";
+    html += "Marketed as";
+    html += "</td>\n";
+    html += "  <td>";
+    html += "Bytes in disk";
+    html += "</td>\n";
+    html += "  <td>";
+    html += "Actual usable size";
+    html += "</td>\n";
+    html += "  <td>";
+    html += "Lost to marketing";
+    html += "</td>\n";
+    html += "  <td>";
+    html += "Lost size in bytes";
+    html += "</td>\n";
+    html += "</tr>\n";
+    html += "</thead>";
+
+    for (var i = 0; i < sizes.length; i++) {
+        size = sizes[i] * 1000 * 1000 * 1000;
+        sizeGiB = sizes[i] * 1024 * 1024 * 1024;
+
+        html += "<tr>";
+        html += "  <td>";
+        html += number.format((size / 1000 / 1000 / 1000)) + " GB";
+        html += "</td>\n";
+        html += "  <td>";
+        html += number.format(size) + " B";
+        html += "</td>\n";
+        html += "  <td>";
+        html += number.format((size / 1024 / 1024 / 1024)) + " GiB";
+        html += "</td>\n";
+        html += "  <td>";
+        html += number.format(((sizeGiB - size) / 1024 / 1024 / 1024)) + " GiB";
+        html += "</td>\n";
+        html += "  <td>";
+        html += number.format(sizeGiB - size) + " B";
+        html += "</td>\n";
+        html += "</tr>\n";
+    }
+
+    html += "</table>\n\n";
+
+    domConstruct.place(html, "sizelist", "only");
+});
+</script>
+
+<h1>Hard disk space lost by mismarketing to consumers</h1>
+
+<p>Hard drive manufacturers uses <code>1 KB</code> = <code>1000 bytes</code> but computer's operating systems use <code>1 KB</code> = <code>1024 KB (KiB)</code>.
+Same for <code>1 GB</code> = <code>1000000000 bytes</code> and <code>1 GiB</code> = <code>1073741824 bytes</code>, etc.
+Here's table how much you'll lose disk space because of this mismarketing done by manufacturers.
+There's also loss of space because filesystem needs metadata for it's own use.
+This space loss is depending which filesystem is used (NTFS, FAT, ZFS, ext4, btrfs, ..).</p>
+
+<div id="sizelist">Loading..</div>
+
+<hr />
+
+<p>This page was last updated on 2016-08-13T21:55:52+0300.</p>
 
 
 
