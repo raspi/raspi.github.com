@@ -1,0 +1,78 @@
+<script>
+document.addEventListener("DOMContentLoaded", function(event) { 
+$.getJSON( "https://api.github.com/repos/raspi/WinLLDPService/releases", function( data ) {
+
+  var limit = 5;
+  var idx = 1;
+  
+  console.log(data);
+  
+  $.each( data, function( key, val ) {
+
+  var releasedata = {
+    "pre": val.prerelease,
+    "name": val.name,
+    "date": val.published_at,
+    "url": val.html_url,
+	"files": []
+  };
+  
+  var divclass = "bg-info";
+  
+  if (true === releasedata.pre) {
+    divclass = "bg-danger";
+  }
+  
+  var files = [];
+  
+  $.each( val.assets, function( key, val ) {
+    files.push({
+	  "name": val.name,
+	  "size": val.size,
+	  "url": val.browser_download_url,
+	  "dlcount": val.download_count
+	});
+  });
+  
+  releasedata["files"] = files;
+  
+  var relhtml = ""
+  
+  relhtml += releasedata.name + " released @ " + releasedata.date + " ";
+  relhtml += "<small><a href='" + releasedata.url + "'>GitHub release page</a></small>";
+  
+  var flisthtml = "<table class='table table-striped'>"
+  flisthtml += "<thead>";
+  flisthtml += "<tr>";
+  flisthtml += "<td>File</td>";
+  flisthtml += "<td>Size (bytes)</td>";
+  flisthtml += "<td>Downloads</td>";
+  flisthtml += "</tr>";
+  flisthtml += "</thead><tbody class='table-hover'>";
+
+  $.each( releasedata.files, function( key, val ) {
+    flisthtml += "<tr>";
+	flisthtml += "<td><a href='" + val.url + "'>" + val.name + "</a></td>";
+	flisthtml += "<td>" + val.size + "</td>";
+	flisthtml += "<td>" + val.dlcount + "</td>";
+	flisthtml += "</tr>";
+  });
+flisthtml += "</tbody></table>";
+
+  $( "<div/>", {
+    html: "<p class='" + divclass + "'>" + relhtml + flisthtml + "</p><hr />"
+  }).appendTo( "#githubrelease" );
+  
+  idx++;
+  
+  if (idx >= limit) {
+  return;
+  }
+  
+  });
+  
+});
+
+});
+
+</script>

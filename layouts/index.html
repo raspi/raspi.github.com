@@ -1,0 +1,14 @@
+{{ $baseUrl := .Site.BaseURL }}
+{{ partial "header.html" . }}
+
+<main role="main">
+
+{{ range where .Site.Pages "Title" "_index" }}
+	<div class="row doc-main">
+		{{ .Content }}
+	</div>
+{{ end }}
+
+</main>
+
+{{ partial "footer.html" . }}

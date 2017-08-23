@@ -1,0 +1,19 @@
+theme = "default"
+baseURL = "/"
+languageCode = "en-us"
+title = "raspi@GitHub"
+copyright = "Copyright (c) 2017, Pekka Järvinen; All rights reserved."
+disableKinds = ["RSS", "taxonomy", "taxonomyTerm"]
+
+[params]
+  description    = "raspi@GitHub"
+  withSitePosts  = true
+  searchDomain   = ""
+  noCategoryLink = true
+  repositoryUrl  = "https://github.com/raspi"
+  highlightStyle = "github"
+  
+[[menu.main]]
+  name   = "Projects"
+  url    = "/projects/"
+  weight = 10
