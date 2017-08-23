@@ -1,7 +1,7 @@
 ﻿---
 title: "Hard disk space loss"
 description: "Hard disk space lost by mismarketing to consumers"
-date: 2017-08-23T20:05:48+03:00
+date: 2017-08-23T21:44:15+03:00
 draft: false
 categories: [projects]
 tags: [projects]
