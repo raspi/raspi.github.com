@@ -1,7 +1,6 @@
----
+﻿---
 title: "ScreenJournal"
 description: "ScreenJournal is tiny Windows program that takes screenshots in certain intervals to help track your work day."
-#date: 2017-07-21T19:35:51+03:00
 draft: false
 categories: [projects]
 tags: [projects]

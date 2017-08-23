@@ -1,7 +1,7 @@
----
+﻿---
 title: "Building NAS"
 description: "How to build your own NAS for home use which doesn't break immediately"
-#date: 2017-07-21T19:35:51+03:00
+date: 2017-08-23T20:05:48+03:00
 draft: false
 categories: [projects]
 tags: [projects]
