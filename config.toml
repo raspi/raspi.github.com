@@ -1,5 +1,5 @@
 theme = "default"
-baseURL = "/"
+baseURL = ""
 languageCode = "en-us"
 title = "raspi@GitHub"
 copyright = "Copyright (c) 2012-, Pekka Järvinen; All rights reserved."
