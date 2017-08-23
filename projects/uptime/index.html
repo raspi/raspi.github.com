@@ -1,236 +1,2736 @@
 <!DOCTYPE html>
+
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-<meta name="google-site-verification" content="c6r4YUg5mxq7D7PRfX2K-eUcAYv6Awu0F-cU3caM9dc" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-<meta name="description" content="raspi@GitHub">
-<meta name="author" content="Pekka Järvinen">
-<link rel="icon" href="/favicon.png">
+	<head>
+		<meta charset="utf-8">
+		<meta name="google-site-verification" content="c6r4YUg5mxq7D7PRfX2K-eUcAYv6Awu0F-cU3caM9dc" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="icon" href="//favicon.ico">
+		<title>Uptime - raspi@GitHub</title>
+		<link rel="stylesheet" href="//css/highlight/github.css">
+		<link rel="stylesheet" href="//css/bootstrap.min.css">
+		<link rel="stylesheet" href="//css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="//css/theme.css">
+		<link rel="stylesheet" href="//css/bootie-docs.css">
+		<link rel="stylesheet" href="//css/site.css">
+	</head>
 
-<title>Uptime and downtime SLA </title>
+<body role="document">
 
-<!-- Bootstrap core CSS -->
-<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="//">raspi@GitHub</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li ><a href="//">Home</a></li>
+			
+			
+				
+					<li ><a href="/projects/">Projects</a></li>
+				
+			
+				
+				</ul>
+				
+			</div>
+		</div>
+	</nav>
 
-<!-- Custom styles for this template -->
-<link href="/jumbotron.css" rel="stylesheet">
-    </head>
+<div class="container">
 
-    <body>
 
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> &nbsp; raspi@GitHub</a>
-                </div>
+<div class="row">
+	<div class="col-sm-8 doc-main">
+		<main role="main">
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">Uptime</h1>
+				<section>
+					
 
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a href="/projects"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> &nbsp; Projects</a></li>
-                    </ul>
-                </div>
-        </nav>
+<p>How long service can be down with certain % SLA?</p>
 
-        <!-- Main jumbotron for a primary marketing message or call to action -->
-        <!-- <div class="jumbotron">
-          <div class="container">
-            <h1>Hello, world!</h1>
-            <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-            <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
-          </div>
-        </div> -->
+<h1 id="using-month-as-time-span">Using month as time span</h1>
 
-        <div class="container">
 
-            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- Mainos -->
-            <ins class="adsbygoogle"
-                 style="display:inline-block;width:728px;height:90px"
-                 data-ad-client="ca-pub-5396746781472027"
-                 data-ad-slot="6167495996"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
 
-            <br />
 
-                <p><!-- Dojo -->
-<script src="//ajax.googleapis.com/ajax/libs/dojo/1.11.2/dojo/dojo.js"></script></p>
 
-<script type="text/javascript">
 
-require(["dojo/dom-construct", "dojo/number", "dojo/_base/array", "dojo/domReady!"],
 
-function (domConstruct, number, arr) {
+<p>Using <strong>2 592 000</strong> seconds as average.</p>
 
-    function secondsToTime(s, units) {
+<table>
+<tr>
+	<td>SLA percentage</td>
+	<td>Relative time</td>
+	<td>Seconds</td>
+</tr>
+<tr>
+	<td>99.99999&nbsp;%</td>
+	<td></td>
+	<td>0,26</td>
+</tr>
+<tr>
+	<td>99.9999&nbsp;%</td>
+	<td>
+			2
+			seconds</td>
+	<td>2,59</td>
+</tr>
+<tr>
+	<td>99.999&nbsp;%</td>
+	<td>
+			25
+			seconds</td>
+	<td>25,92</td>
+</tr>
+<tr>
+	<td>99.99&nbsp;%</td>
+	<td>
+			4
+			minutes, 
+			19
+			seconds</td>
+	<td>259,20</td>
+</tr>
+<tr>
+	<td>99.9&nbsp;%</td>
+	<td>
+			43
+			minutes, 
+			11
+			seconds</td>
+	<td>2 592,00</td>
+</tr>
+<tr>
+	<td>99.5&nbsp;%</td>
+	<td>
+			3
+			hours, 
+			36
+			minutes</td>
+	<td>12 960,00</td>
+</tr>
+<tr>
+	<td>99&nbsp;%</td>
+	<td>
+			7
+			hours, 
+			12
+			minutes</td>
+	<td>25 920,00</td>
+</tr>
+<tr>
+	<td>98&nbsp;%</td>
+	<td>
+			14
+			hours, 
+			24
+			minutes</td>
+	<td>51 840,00</td>
+</tr>
+<tr>
+	<td>97&nbsp;%</td>
+	<td>
+			21
+			hours, 
+			36
+			minutes</td>
+	<td>77 760,00</td>
+</tr>
+<tr>
+	<td>96&nbsp;%</td>
+	<td>
+			1
+			day, 
+			4
+			hours, 
+			48
+			minutes</td>
+	<td>103 680,00</td>
+</tr>
+<tr>
+	<td>95&nbsp;%</td>
+	<td>
+			1
+			day, 
+			12
+			hours</td>
+	<td>129 600,00</td>
+</tr>
+<tr>
+	<td>94&nbsp;%</td>
+	<td>
+			1
+			day, 
+			19
+			hours, 
+			12
+			minutes</td>
+	<td>155 520,00</td>
+</tr>
+<tr>
+	<td>93&nbsp;%</td>
+	<td>
+			2
+			days, 
+			2
+			hours, 
+			24
+			minutes</td>
+	<td>181 440,00</td>
+</tr>
+<tr>
+	<td>92&nbsp;%</td>
+	<td>
+			2
+			days, 
+			9
+			hours, 
+			36
+			minutes</td>
+	<td>207 360,00</td>
+</tr>
+<tr>
+	<td>91&nbsp;%</td>
+	<td>
+			2
+			days, 
+			16
+			hours, 
+			48
+			minutes</td>
+	<td>233 280,00</td>
+</tr>
+<tr>
+	<td>90&nbsp;%</td>
+	<td>
+			3
+			days</td>
+	<td>259 200,00</td>
+</tr>
+<tr>
+	<td>89&nbsp;%</td>
+	<td>
+			3
+			days, 
+			7
+			hours, 
+			12
+			minutes</td>
+	<td>285 120,00</td>
+</tr>
+<tr>
+	<td>88&nbsp;%</td>
+	<td>
+			3
+			days, 
+			14
+			hours, 
+			24
+			minutes</td>
+	<td>311 040,00</td>
+</tr>
+<tr>
+	<td>87&nbsp;%</td>
+	<td>
+			3
+			days, 
+			21
+			hours, 
+			36
+			minutes</td>
+	<td>336 960,00</td>
+</tr>
+<tr>
+	<td>86&nbsp;%</td>
+	<td>
+			4
+			days, 
+			4
+			hours, 
+			48
+			minutes</td>
+	<td>362 880,00</td>
+</tr>
+<tr>
+	<td>85&nbsp;%</td>
+	<td>
+			4
+			days, 
+			12
+			hours</td>
+	<td>388 800,00</td>
+</tr>
+<tr>
+	<td>84&nbsp;%</td>
+	<td>
+			4
+			days, 
+			19
+			hours, 
+			12
+			minutes</td>
+	<td>414 720,00</td>
+</tr>
+<tr>
+	<td>83&nbsp;%</td>
+	<td>
+			5
+			days, 
+			2
+			hours, 
+			24
+			minutes</td>
+	<td>440 640,00</td>
+</tr>
+<tr>
+	<td>82&nbsp;%</td>
+	<td>
+			5
+			days, 
+			9
+			hours, 
+			36
+			minutes</td>
+	<td>466 560,00</td>
+</tr>
+<tr>
+	<td>81&nbsp;%</td>
+	<td>
+			5
+			days, 
+			16
+			hours, 
+			48
+			minutes</td>
+	<td>492 480,00</td>
+</tr>
+<tr>
+	<td>80&nbsp;%</td>
+	<td>
+			6
+			days</td>
+	<td>518 400,00</td>
+</tr>
+<tr>
+	<td>79&nbsp;%</td>
+	<td>
+			6
+			days, 
+			7
+			hours, 
+			12
+			minutes</td>
+	<td>544 320,00</td>
+</tr>
+<tr>
+	<td>78&nbsp;%</td>
+	<td>
+			6
+			days, 
+			14
+			hours, 
+			24
+			minutes</td>
+	<td>570 240,00</td>
+</tr>
+<tr>
+	<td>77&nbsp;%</td>
+	<td>
+			6
+			days, 
+			21
+			hours, 
+			36
+			minutes</td>
+	<td>596 160,00</td>
+</tr>
+<tr>
+	<td>76&nbsp;%</td>
+	<td>
+			1
+			week
+			4
+			hours, 
+			48
+			minutes</td>
+	<td>622 080,00</td>
+</tr>
+<tr>
+	<td>75&nbsp;%</td>
+	<td>
+			1
+			week
+			12
+			hours</td>
+	<td>648 000,00</td>
+</tr>
+<tr>
+	<td>74&nbsp;%</td>
+	<td>
+			1
+			week
+			19
+			hours, 
+			12
+			minutes</td>
+	<td>673 920,00</td>
+</tr>
+<tr>
+	<td>73&nbsp;%</td>
+	<td>
+			1
+			week, 
+			1
+			day, 
+			2
+			hours, 
+			24
+			minutes</td>
+	<td>699 840,00</td>
+</tr>
+<tr>
+	<td>72&nbsp;%</td>
+	<td>
+			1
+			week, 
+			1
+			day, 
+			9
+			hours, 
+			36
+			minutes</td>
+	<td>725 760,00</td>
+</tr>
+<tr>
+	<td>71&nbsp;%</td>
+	<td>
+			1
+			week, 
+			1
+			day, 
+			16
+			hours, 
+			48
+			minutes</td>
+	<td>751 680,00</td>
+</tr>
+<tr>
+	<td>70&nbsp;%</td>
+	<td>
+			1
+			week, 
+			2
+			days</td>
+	<td>777 600,00</td>
+</tr>
+<tr>
+	<td>69&nbsp;%</td>
+	<td>
+			1
+			week, 
+			2
+			days, 
+			7
+			hours, 
+			12
+			minutes</td>
+	<td>803 520,00</td>
+</tr>
+<tr>
+	<td>68&nbsp;%</td>
+	<td>
+			1
+			week, 
+			2
+			days, 
+			14
+			hours, 
+			24
+			minutes</td>
+	<td>829 440,00</td>
+</tr>
+<tr>
+	<td>67&nbsp;%</td>
+	<td>
+			1
+			week, 
+			2
+			days, 
+			21
+			hours, 
+			36
+			minutes</td>
+	<td>855 360,00</td>
+</tr>
+<tr>
+	<td>66&nbsp;%</td>
+	<td>
+			1
+			week, 
+			3
+			days, 
+			4
+			hours, 
+			48
+			minutes</td>
+	<td>881 280,00</td>
+</tr>
+<tr>
+	<td>65&nbsp;%</td>
+	<td>
+			1
+			week, 
+			3
+			days, 
+			12
+			hours</td>
+	<td>907 200,00</td>
+</tr>
+<tr>
+	<td>64&nbsp;%</td>
+	<td>
+			1
+			week, 
+			3
+			days, 
+			19
+			hours, 
+			12
+			minutes</td>
+	<td>933 120,00</td>
+</tr>
+<tr>
+	<td>63&nbsp;%</td>
+	<td>
+			1
+			week, 
+			4
+			days, 
+			2
+			hours, 
+			24
+			minutes</td>
+	<td>959 040,00</td>
+</tr>
+<tr>
+	<td>62&nbsp;%</td>
+	<td>
+			1
+			week, 
+			4
+			days, 
+			9
+			hours, 
+			36
+			minutes</td>
+	<td>984 960,00</td>
+</tr>
+<tr>
+	<td>61&nbsp;%</td>
+	<td>
+			1
+			week, 
+			4
+			days, 
+			16
+			hours, 
+			48
+			minutes</td>
+	<td>1 010 880,00</td>
+</tr>
+<tr>
+	<td>60&nbsp;%</td>
+	<td>
+			1
+			week, 
+			5
+			days</td>
+	<td>1 036 800,00</td>
+</tr>
+<tr>
+	<td>59&nbsp;%</td>
+	<td>
+			1
+			week, 
+			5
+			days, 
+			7
+			hours, 
+			12
+			minutes</td>
+	<td>1 062 720,00</td>
+</tr>
+<tr>
+	<td>58&nbsp;%</td>
+	<td>
+			1
+			week, 
+			5
+			days, 
+			14
+			hours, 
+			24
+			minutes</td>
+	<td>1 088 640,00</td>
+</tr>
+<tr>
+	<td>57&nbsp;%</td>
+	<td>
+			1
+			week, 
+			5
+			days, 
+			21
+			hours, 
+			36
+			minutes</td>
+	<td>1 114 560,00</td>
+</tr>
+<tr>
+	<td>56&nbsp;%</td>
+	<td>
+			1
+			week, 
+			6
+			days, 
+			4
+			hours, 
+			48
+			minutes</td>
+	<td>1 140 480,00</td>
+</tr>
+<tr>
+	<td>55&nbsp;%</td>
+	<td>
+			1
+			week, 
+			6
+			days, 
+			12
+			hours</td>
+	<td>1 166 400,00</td>
+</tr>
+<tr>
+	<td>54&nbsp;%</td>
+	<td>
+			1
+			week, 
+			6
+			days, 
+			19
+			hours, 
+			12
+			minutes</td>
+	<td>1 192 320,00</td>
+</tr>
+<tr>
+	<td>53&nbsp;%</td>
+	<td>
+			2
+			weeks
+			2
+			hours, 
+			24
+			minutes</td>
+	<td>1 218 240,00</td>
+</tr>
+<tr>
+	<td>52&nbsp;%</td>
+	<td>
+			2
+			weeks
+			9
+			hours, 
+			36
+			minutes</td>
+	<td>1 244 160,00</td>
+</tr>
+<tr>
+	<td>51&nbsp;%</td>
+	<td>
+			2
+			weeks
+			16
+			hours, 
+			48
+			minutes</td>
+	<td>1 270 080,00</td>
+</tr>
+<tr>
+	<td>50&nbsp;%</td>
+	<td>
+			2
+			weeks, 
+			1
+			day</td>
+	<td>1 296 000,00</td>
+</tr>
+<tr>
+	<td>49&nbsp;%</td>
+	<td>
+			2
+			weeks, 
+			1
+			day, 
+			7
+			hours, 
+			12
+			minutes</td>
+	<td>1 321 920,00</td>
+</tr>
+<tr>
+	<td>48&nbsp;%</td>
+	<td>
+			2
+			weeks, 
+			1
+			day, 
+			14
+			hours, 
+			24
+			minutes</td>
+	<td>1 347 840,00</td>
+</tr>
+<tr>
+	<td>47&nbsp;%</td>
+	<td>
+			2
+			weeks, 
+			1
+			day, 
+			21
+			hours, 
+			36
+			minutes</td>
+	<td>1 373 760,00</td>
+</tr>
+<tr>
+	<td>46&nbsp;%</td>
+	<td>
+			2
+			weeks, 
+			2
+			days, 
+			4
+			hours, 
+			48
+			minutes</td>
+	<td>1 399 680,00</td>
+</tr>
+<tr>
+	<td>45&nbsp;%</td>
+	<td>
+			2
+			weeks, 
+			2
+			days, 
+			12
+			hours</td>
+	<td>1 425 600,00</td>
+</tr>
+<tr>
+	<td>44&nbsp;%</td>
+	<td>
+			2
+			weeks, 
+			2
+			days, 
+			19
+			hours, 
+			12
+			minutes</td>
+	<td>1 451 520,00</td>
+</tr>
+<tr>
+	<td>43&nbsp;%</td>
+	<td>
+			2
+			weeks, 
+			3
+			days, 
+			2
+			hours, 
+			23
+			minutes, 
+			59
+			seconds</td>
+	<td>1 477 440,00</td>
+</tr>
+<tr>
+	<td>42&nbsp;%</td>
+	<td>
+			2
+			weeks, 
+			3
+			days, 
+			9
+			hours, 
+			36
+			minutes</td>
+	<td>1 503 360,00</td>
+</tr>
+<tr>
+	<td>41&nbsp;%</td>
+	<td>
+			2
+			weeks, 
+			3
+			days, 
+			16
+			hours, 
+			48
+			minutes</td>
+	<td>1 529 280,00</td>
+</tr>
+<tr>
+	<td>40&nbsp;%</td>
+	<td>
+			2
+			weeks, 
+			4
+			days</td>
+	<td>1 555 200,00</td>
+</tr>
+<tr>
+	<td>39&nbsp;%</td>
+	<td>
+			2
+			weeks, 
+			4
+			days, 
+			7
+			hours, 
+			12
+			minutes</td>
+	<td>1 581 120,00</td>
+</tr>
+<tr>
+	<td>38&nbsp;%</td>
+	<td>
+			2
+			weeks, 
+			4
+			days, 
+			14
+			hours, 
+			24
+			minutes</td>
+	<td>1 607 040,00</td>
+</tr>
+<tr>
+	<td>37&nbsp;%</td>
+	<td>
+			2
+			weeks, 
+			4
+			days, 
+			21
+			hours, 
+			36
+			minutes</td>
+	<td>1 632 960,00</td>
+</tr>
+<tr>
+	<td>36&nbsp;%</td>
+	<td>
+			2
+			weeks, 
+			5
+			days, 
+			4
+			hours, 
+			48
+			minutes</td>
+	<td>1 658 880,00</td>
+</tr>
+<tr>
+	<td>35&nbsp;%</td>
+	<td>
+			2
+			weeks, 
+			5
+			days, 
+			12
+			hours</td>
+	<td>1 684 800,00</td>
+</tr>
+<tr>
+	<td>34&nbsp;%</td>
+	<td>
+			2
+			weeks, 
+			5
+			days, 
+			19
+			hours, 
+			12
+			minutes</td>
+	<td>1 710 720,00</td>
+</tr>
+<tr>
+	<td>33&nbsp;%</td>
+	<td>
+			2
+			weeks, 
+			6
+			days, 
+			2
+			hours, 
+			24
+			minutes</td>
+	<td>1 736 640,00</td>
+</tr>
+<tr>
+	<td>32&nbsp;%</td>
+	<td>
+			2
+			weeks, 
+			6
+			days, 
+			9
+			hours, 
+			36
+			minutes</td>
+	<td>1 762 560,00</td>
+</tr>
+<tr>
+	<td>31&nbsp;%</td>
+	<td>
+			2
+			weeks, 
+			6
+			days, 
+			16
+			hours, 
+			47
+			minutes, 
+			59
+			seconds</td>
+	<td>1 788 480,00</td>
+</tr>
+<tr>
+	<td>30&nbsp;%</td>
+	<td>
+			3
+			weeks</td>
+	<td>1 814 400,00</td>
+</tr>
+<tr>
+	<td>29&nbsp;%</td>
+	<td>
+			3
+			weeks
+			7
+			hours, 
+			12
+			minutes</td>
+	<td>1 840 320,00</td>
+</tr>
+<tr>
+	<td>28&nbsp;%</td>
+	<td>
+			3
+			weeks
+			14
+			hours, 
+			24
+			minutes</td>
+	<td>1 866 240,00</td>
+</tr>
+<tr>
+	<td>27&nbsp;%</td>
+	<td>
+			3
+			weeks
+			21
+			hours, 
+			36
+			minutes</td>
+	<td>1 892 160,00</td>
+</tr>
+<tr>
+	<td>26&nbsp;%</td>
+	<td>
+			3
+			weeks, 
+			1
+			day, 
+			4
+			hours, 
+			48
+			minutes</td>
+	<td>1 918 080,00</td>
+</tr>
+<tr>
+	<td>25&nbsp;%</td>
+	<td>
+			3
+			weeks, 
+			1
+			day, 
+			12
+			hours</td>
+	<td>1 944 000,00</td>
+</tr>
+<tr>
+	<td>24&nbsp;%</td>
+	<td>
+			3
+			weeks, 
+			1
+			day, 
+			19
+			hours, 
+			12
+			minutes</td>
+	<td>1 969 920,00</td>
+</tr>
+<tr>
+	<td>23&nbsp;%</td>
+	<td>
+			3
+			weeks, 
+			2
+			days, 
+			2
+			hours, 
+			24
+			minutes</td>
+	<td>1 995 840,00</td>
+</tr>
+<tr>
+	<td>22&nbsp;%</td>
+	<td>
+			3
+			weeks, 
+			2
+			days, 
+			9
+			hours, 
+			36
+			minutes</td>
+	<td>2 021 760,00</td>
+</tr>
+<tr>
+	<td>21&nbsp;%</td>
+	<td>
+			3
+			weeks, 
+			2
+			days, 
+			16
+			hours, 
+			48
+			minutes</td>
+	<td>2 047 680,00</td>
+</tr>
+<tr>
+	<td>20&nbsp;%</td>
+	<td>
+			3
+			weeks, 
+			3
+			days</td>
+	<td>2 073 600,00</td>
+</tr>
+<tr>
+	<td>19&nbsp;%</td>
+	<td>
+			3
+			weeks, 
+			3
+			days, 
+			7
+			hours, 
+			12
+			minutes</td>
+	<td>2 099 520,00</td>
+</tr>
+<tr>
+	<td>18&nbsp;%</td>
+	<td>
+			3
+			weeks, 
+			3
+			days, 
+			14
+			hours, 
+			24
+			minutes</td>
+	<td>2 125 440,00</td>
+</tr>
+<tr>
+	<td>17&nbsp;%</td>
+	<td>
+			3
+			weeks, 
+			3
+			days, 
+			21
+			hours, 
+			36
+			minutes</td>
+	<td>2 151 360,00</td>
+</tr>
+<tr>
+	<td>16&nbsp;%</td>
+	<td>
+			3
+			weeks, 
+			4
+			days, 
+			4
+			hours, 
+			48
+			minutes</td>
+	<td>2 177 280,00</td>
+</tr>
+<tr>
+	<td>15&nbsp;%</td>
+	<td>
+			3
+			weeks, 
+			4
+			days, 
+			12
+			hours</td>
+	<td>2 203 200,00</td>
+</tr>
+<tr>
+	<td>14&nbsp;%</td>
+	<td>
+			3
+			weeks, 
+			4
+			days, 
+			19
+			hours, 
+			12
+			minutes</td>
+	<td>2 229 120,00</td>
+</tr>
+<tr>
+	<td>13&nbsp;%</td>
+	<td>
+			3
+			weeks, 
+			5
+			days, 
+			2
+			hours, 
+			24
+			minutes</td>
+	<td>2 255 040,00</td>
+</tr>
+<tr>
+	<td>12&nbsp;%</td>
+	<td>
+			3
+			weeks, 
+			5
+			days, 
+			9
+			hours, 
+			36
+			minutes</td>
+	<td>2 280 960,00</td>
+</tr>
+<tr>
+	<td>11&nbsp;%</td>
+	<td>
+			3
+			weeks, 
+			5
+			days, 
+			16
+			hours, 
+			48
+			minutes</td>
+	<td>2 306 880,00</td>
+</tr>
+<tr>
+	<td>10&nbsp;%</td>
+	<td>
+			3
+			weeks, 
+			6
+			days</td>
+	<td>2 332 800,00</td>
+</tr>
+<tr>
+	<td>9&nbsp;%</td>
+	<td>
+			3
+			weeks, 
+			6
+			days, 
+			7
+			hours, 
+			12
+			minutes</td>
+	<td>2 358 720,00</td>
+</tr>
+<tr>
+	<td>8&nbsp;%</td>
+	<td>
+			3
+			weeks, 
+			6
+			days, 
+			14
+			hours, 
+			24
+			minutes</td>
+	<td>2 384 640,00</td>
+</tr>
+<tr>
+	<td>7&nbsp;%</td>
+	<td>
+			3
+			weeks, 
+			6
+			days, 
+			21
+			hours, 
+			36
+			minutes</td>
+	<td>2 410 560,00</td>
+</tr>
+<tr>
+	<td>6&nbsp;%</td>
+	<td>
+			4
+			weeks
+			4
+			hours, 
+			48
+			minutes</td>
+	<td>2 436 480,00</td>
+</tr>
+<tr>
+	<td>5&nbsp;%</td>
+	<td>
+			4
+			weeks
+			12
+			hours</td>
+	<td>2 462 400,00</td>
+</tr>
+<tr>
+	<td>4&nbsp;%</td>
+	<td>
+			4
+			weeks
+			19
+			hours, 
+			12
+			minutes</td>
+	<td>2 488 320,00</td>
+</tr>
+<tr>
+	<td>3&nbsp;%</td>
+	<td>
+			4
+			weeks, 
+			1
+			day, 
+			2
+			hours, 
+			24
+			minutes</td>
+	<td>2 514 240,00</td>
+</tr>
+<tr>
+	<td>2&nbsp;%</td>
+	<td>
+			4
+			weeks, 
+			1
+			day, 
+			9
+			hours, 
+			36
+			minutes</td>
+	<td>2 540 160,00</td>
+</tr>
+<tr>
+	<td>1&nbsp;%</td>
+	<td>
+			4
+			weeks, 
+			1
+			day, 
+			16
+			hours, 
+			48
+			minutes</td>
+	<td>2 566 080,00</td>
+</tr>
+<tr>
+	<td>0.5&nbsp;%</td>
+	<td>
+			4
+			weeks, 
+			1
+			day, 
+			20
+			hours, 
+			24
+			minutes</td>
+	<td>2 579 040,00</td>
+</tr>
+<tr>
+	<td>0.1&nbsp;%</td>
+	<td>
+			4
+			weeks, 
+			1
+			day, 
+			23
+			hours, 
+			16
+			minutes, 
+			48
+			seconds</td>
+	<td>2 589 408,00</td>
+</tr>
+<tr>
+	<td>0.01&nbsp;%</td>
+	<td>
+			4
+			weeks, 
+			1
+			day, 
+			23
+			hours, 
+			55
+			minutes, 
+			40
+			seconds</td>
+	<td>2 591 740,80</td>
+</tr></table>
 
-        var o = {};
+<h1 id="using-year-as-time-span">Using year as time span</h1>
 
-        arr.forEach(Object.keys(units), function(entry, i) {
-            // Set all units to zero
-            o[entry] = 0;
-        });
+<p>
 
-        // Populate units
-        arr.forEach(Object.keys(units), function(entry, i) {
-            var duration = units[entry].duration;
-            if (s >= duration) {
-                o[entry] = s / duration;
-                s /= duration;
-            }
-        });
 
-        var html = "";
 
-        arr.forEach(Object.keys(units), function(entry, i) {
-            if(o[entry] > 0)
-            {
-                var u = units[entry].plural;
-                if(o[entry] == 1) {
-                    u = units[entry].single;
-                }
-                html += number.format(o[entry]) + " " + u + ", ";
-            }
-        });
 
-        return html.replace(/,\s+$/, "");
-    }
 
-    function percentagesToTable(percents, seconds)
-    {
-        var _units = {
-                "day": {"single": "day", "plural": "days", "duration": 60 * 60 * 24},
-                "hour": {"single": "hour", "plural": "hours", "duration": 60 * 60},
-                "min": {"single": "minute", "plural": "minutes", "duration": 60},
-                "sec": {"single": "second", "plural": "seconds", "duration": 1}
-        };
+<p>Using <strong>31 536 000</strong> seconds as average.</p>
 
-        var html = "";
+<table>
+<tr>
+	<td>SLA percentage</td>
+	<td>Relative time</td>
+	<td>Seconds</td>
+</tr>
+<tr>
+	<td>99.99999&nbsp;%</td>
+	<td>
+			3
+			seconds</td>
+	<td>3,15</td>
+</tr>
+<tr>
+	<td>99.9999&nbsp;%</td>
+	<td>
+			31
+			seconds</td>
+	<td>31,54</td>
+</tr>
+<tr>
+	<td>99.999&nbsp;%</td>
+	<td>
+			5
+			minutes, 
+			15
+			seconds</td>
+	<td>315,36</td>
+</tr>
+<tr>
+	<td>99.99&nbsp;%</td>
+	<td>
+			52
+			minutes, 
+			33
+			seconds</td>
+	<td>3 153,60</td>
+</tr>
+<tr>
+	<td>99.9&nbsp;%</td>
+	<td>
+			8
+			hours, 
+			45
+			minutes, 
+			35
+			seconds</td>
+	<td>31 536,00</td>
+</tr>
+<tr>
+	<td>99.5&nbsp;%</td>
+	<td>
+			1
+			day, 
+			19
+			hours, 
+			48
+			minutes</td>
+	<td>157 680,00</td>
+</tr>
+<tr>
+	<td>99&nbsp;%</td>
+	<td>
+			3
+			days, 
+			15
+			hours, 
+			36
+			minutes</td>
+	<td>315 360,00</td>
+</tr>
+<tr>
+	<td>98&nbsp;%</td>
+	<td>
+			1
+			week
+			7
+			hours, 
+			12
+			minutes</td>
+	<td>630 720,00</td>
+</tr>
+<tr>
+	<td>97&nbsp;%</td>
+	<td>
+			1
+			week, 
+			3
+			days, 
+			22
+			hours, 
+			48
+			minutes</td>
+	<td>946 080,00</td>
+</tr>
+<tr>
+	<td>96&nbsp;%</td>
+	<td>
+			2
+			weeks
+			14
+			hours, 
+			24
+			minutes</td>
+	<td>1 261 440,00</td>
+</tr>
+<tr>
+	<td>95&nbsp;%</td>
+	<td>
+			2
+			weeks, 
+			4
+			days, 
+			6
+			hours</td>
+	<td>1 576 800,00</td>
+</tr>
+<tr>
+	<td>94&nbsp;%</td>
+	<td>
+			3
+			weeks
+			21
+			hours, 
+			36
+			minutes</td>
+	<td>1 892 160,00</td>
+</tr>
+<tr>
+	<td>93&nbsp;%</td>
+	<td>
+			3
+			weeks, 
+			4
+			days, 
+			13
+			hours, 
+			12
+			minutes</td>
+	<td>2 207 520,00</td>
+</tr>
+<tr>
+	<td>92&nbsp;%</td>
+	<td>
+			4
+			weeks, 
+			1
+			day, 
+			4
+			hours, 
+			48
+			minutes</td>
+	<td>2 522 880,00</td>
+</tr>
+<tr>
+	<td>91&nbsp;%</td>
+	<td>
+			4
+			weeks, 
+			4
+			days, 
+			20
+			hours, 
+			24
+			minutes</td>
+	<td>2 838 240,00</td>
+</tr>
+<tr>
+	<td>90&nbsp;%</td>
+	<td>
+			5
+			weeks, 
+			1
+			day, 
+			12
+			hours</td>
+	<td>3 153 600,00</td>
+</tr>
+<tr>
+	<td>89&nbsp;%</td>
+	<td>
+			5
+			weeks, 
+			5
+			days, 
+			3
+			hours, 
+			36
+			minutes</td>
+	<td>3 468 960,00</td>
+</tr>
+<tr>
+	<td>88&nbsp;%</td>
+	<td>
+			6
+			weeks, 
+			1
+			day, 
+			19
+			hours, 
+			12
+			minutes</td>
+	<td>3 784 320,00</td>
+</tr>
+<tr>
+	<td>87&nbsp;%</td>
+	<td>
+			6
+			weeks, 
+			5
+			days, 
+			10
+			hours, 
+			48
+			minutes</td>
+	<td>4 099 680,00</td>
+</tr>
+<tr>
+	<td>86&nbsp;%</td>
+	<td>
+			7
+			weeks, 
+			2
+			days, 
+			2
+			hours, 
+			24
+			minutes</td>
+	<td>4 415 040,00</td>
+</tr>
+<tr>
+	<td>85&nbsp;%</td>
+	<td>
+			7
+			weeks, 
+			5
+			days, 
+			18
+			hours</td>
+	<td>4 730 400,00</td>
+</tr>
+<tr>
+	<td>84&nbsp;%</td>
+	<td>
+			8
+			weeks, 
+			2
+			days, 
+			9
+			hours, 
+			36
+			minutes</td>
+	<td>5 045 760,00</td>
+</tr>
+<tr>
+	<td>83&nbsp;%</td>
+	<td>
+			8
+			weeks, 
+			6
+			days, 
+			1
+			hour, 
+			12
+			minutes</td>
+	<td>5 361 120,00</td>
+</tr>
+<tr>
+	<td>82&nbsp;%</td>
+	<td>
+			9
+			weeks, 
+			2
+			days, 
+			16
+			hours, 
+			48
+			minutes</td>
+	<td>5 676 480,00</td>
+</tr>
+<tr>
+	<td>81&nbsp;%</td>
+	<td>
+			9
+			weeks, 
+			6
+			days, 
+			8
+			hours, 
+			24
+			minutes</td>
+	<td>5 991 840,00</td>
+</tr>
+<tr>
+	<td>80&nbsp;%</td>
+	<td>
+			10
+			weeks, 
+			3
+			days</td>
+	<td>6 307 200,00</td>
+</tr>
+<tr>
+	<td>79&nbsp;%</td>
+	<td>
+			10
+			weeks, 
+			6
+			days, 
+			15
+			hours, 
+			36
+			minutes</td>
+	<td>6 622 560,00</td>
+</tr>
+<tr>
+	<td>78&nbsp;%</td>
+	<td>
+			11
+			weeks, 
+			3
+			days, 
+			7
+			hours, 
+			12
+			minutes</td>
+	<td>6 937 920,00</td>
+</tr>
+<tr>
+	<td>77&nbsp;%</td>
+	<td>
+			11
+			weeks, 
+			6
+			days, 
+			22
+			hours, 
+			48
+			minutes</td>
+	<td>7 253 280,00</td>
+</tr>
+<tr>
+	<td>76&nbsp;%</td>
+	<td>
+			12
+			weeks, 
+			3
+			days, 
+			14
+			hours, 
+			24
+			minutes</td>
+	<td>7 568 640,00</td>
+</tr>
+<tr>
+	<td>75&nbsp;%</td>
+	<td>
+			13
+			weeks
+			6
+			hours</td>
+	<td>7 884 000,00</td>
+</tr>
+<tr>
+	<td>74&nbsp;%</td>
+	<td>
+			13
+			weeks, 
+			3
+			days, 
+			21
+			hours, 
+			36
+			minutes</td>
+	<td>8 199 360,00</td>
+</tr>
+<tr>
+	<td>73&nbsp;%</td>
+	<td>
+			14
+			weeks
+			13
+			hours, 
+			12
+			minutes</td>
+	<td>8 514 720,00</td>
+</tr>
+<tr>
+	<td>72&nbsp;%</td>
+	<td>
+			14
+			weeks, 
+			4
+			days, 
+			4
+			hours, 
+			48
+			minutes</td>
+	<td>8 830 080,00</td>
+</tr>
+<tr>
+	<td>71&nbsp;%</td>
+	<td>
+			15
+			weeks
+			20
+			hours, 
+			24
+			minutes</td>
+	<td>9 145 440,00</td>
+</tr>
+<tr>
+	<td>70&nbsp;%</td>
+	<td>
+			15
+			weeks, 
+			4
+			days, 
+			12
+			hours</td>
+	<td>9 460 800,00</td>
+</tr>
+<tr>
+	<td>69&nbsp;%</td>
+	<td>
+			16
+			weeks, 
+			1
+			day, 
+			3
+			hours, 
+			36
+			minutes</td>
+	<td>9 776 160,00</td>
+</tr>
+<tr>
+	<td>68&nbsp;%</td>
+	<td>
+			16
+			weeks, 
+			4
+			days, 
+			19
+			hours, 
+			12
+			minutes</td>
+	<td>10 091 520,00</td>
+</tr>
+<tr>
+	<td>67&nbsp;%</td>
+	<td>
+			17
+			weeks, 
+			1
+			day, 
+			10
+			hours, 
+			48
+			minutes</td>
+	<td>10 406 880,00</td>
+</tr>
+<tr>
+	<td>66&nbsp;%</td>
+	<td>
+			17
+			weeks, 
+			5
+			days, 
+			2
+			hours, 
+			24
+			minutes</td>
+	<td>10 722 240,00</td>
+</tr>
+<tr>
+	<td>65&nbsp;%</td>
+	<td>
+			18
+			weeks, 
+			1
+			day, 
+			18
+			hours</td>
+	<td>11 037 600,00</td>
+</tr>
+<tr>
+	<td>64&nbsp;%</td>
+	<td>
+			18
+			weeks, 
+			5
+			days, 
+			9
+			hours, 
+			36
+			minutes</td>
+	<td>11 352 960,00</td>
+</tr>
+<tr>
+	<td>63&nbsp;%</td>
+	<td>
+			19
+			weeks, 
+			2
+			days, 
+			1
+			hour, 
+			12
+			minutes</td>
+	<td>11 668 320,00</td>
+</tr>
+<tr>
+	<td>62&nbsp;%</td>
+	<td>
+			19
+			weeks, 
+			5
+			days, 
+			16
+			hours, 
+			48
+			minutes</td>
+	<td>11 983 680,00</td>
+</tr>
+<tr>
+	<td>61&nbsp;%</td>
+	<td>
+			20
+			weeks, 
+			2
+			days, 
+			8
+			hours, 
+			24
+			minutes</td>
+	<td>12 299 040,00</td>
+</tr>
+<tr>
+	<td>60&nbsp;%</td>
+	<td>
+			20
+			weeks, 
+			6
+			days</td>
+	<td>12 614 400,00</td>
+</tr>
+<tr>
+	<td>59&nbsp;%</td>
+	<td>
+			21
+			weeks, 
+			2
+			days, 
+			15
+			hours, 
+			36
+			minutes</td>
+	<td>12 929 760,00</td>
+</tr>
+<tr>
+	<td>58&nbsp;%</td>
+	<td>
+			21
+			weeks, 
+			6
+			days, 
+			7
+			hours, 
+			12
+			minutes</td>
+	<td>13 245 120,00</td>
+</tr>
+<tr>
+	<td>57&nbsp;%</td>
+	<td>
+			22
+			weeks, 
+			2
+			days, 
+			22
+			hours, 
+			48
+			minutes</td>
+	<td>13 560 480,00</td>
+</tr>
+<tr>
+	<td>56&nbsp;%</td>
+	<td>
+			22
+			weeks, 
+			6
+			days, 
+			14
+			hours, 
+			24
+			minutes</td>
+	<td>13 875 840,00</td>
+</tr>
+<tr>
+	<td>55&nbsp;%</td>
+	<td>
+			23
+			weeks, 
+			3
+			days, 
+			6
+			hours</td>
+	<td>14 191 200,00</td>
+</tr>
+<tr>
+	<td>54&nbsp;%</td>
+	<td>
+			23
+			weeks, 
+			6
+			days, 
+			21
+			hours, 
+			36
+			minutes</td>
+	<td>14 506 560,00</td>
+</tr>
+<tr>
+	<td>53&nbsp;%</td>
+	<td>
+			24
+			weeks, 
+			3
+			days, 
+			13
+			hours, 
+			12
+			minutes</td>
+	<td>14 821 920,00</td>
+</tr>
+<tr>
+	<td>52&nbsp;%</td>
+	<td>
+			25
+			weeks
+			4
+			hours, 
+			48
+			minutes</td>
+	<td>15 137 280,00</td>
+</tr>
+<tr>
+	<td>51&nbsp;%</td>
+	<td>
+			25
+			weeks, 
+			3
+			days, 
+			20
+			hours, 
+			24
+			minutes</td>
+	<td>15 452 640,00</td>
+</tr>
+<tr>
+	<td>50&nbsp;%</td>
+	<td>
+			26
+			weeks
+			12
+			hours</td>
+	<td>15 768 000,00</td>
+</tr>
+<tr>
+	<td>49&nbsp;%</td>
+	<td>
+			26
+			weeks, 
+			4
+			days, 
+			3
+			hours, 
+			36
+			minutes</td>
+	<td>16 083 360,00</td>
+</tr>
+<tr>
+	<td>48&nbsp;%</td>
+	<td>
+			27
+			weeks
+			19
+			hours, 
+			12
+			minutes</td>
+	<td>16 398 720,00</td>
+</tr>
+<tr>
+	<td>47&nbsp;%</td>
+	<td>
+			27
+			weeks, 
+			4
+			days, 
+			10
+			hours, 
+			48
+			minutes</td>
+	<td>16 714 080,00</td>
+</tr>
+<tr>
+	<td>46&nbsp;%</td>
+	<td>
+			28
+			weeks, 
+			1
+			day, 
+			2
+			hours, 
+			24
+			minutes</td>
+	<td>17 029 440,00</td>
+</tr>
+<tr>
+	<td>45&nbsp;%</td>
+	<td>
+			28
+			weeks, 
+			4
+			days, 
+			18
+			hours</td>
+	<td>17 344 800,00</td>
+</tr>
+<tr>
+	<td>44&nbsp;%</td>
+	<td>
+			29
+			weeks, 
+			1
+			day, 
+			9
+			hours, 
+			36
+			minutes</td>
+	<td>17 660 160,00</td>
+</tr>
+<tr>
+	<td>43&nbsp;%</td>
+	<td>
+			29
+			weeks, 
+			5
+			days, 
+			1
+			hour, 
+			12
+			minutes</td>
+	<td>17 975 520,00</td>
+</tr>
+<tr>
+	<td>42&nbsp;%</td>
+	<td>
+			30
+			weeks, 
+			1
+			day, 
+			16
+			hours, 
+			48
+			minutes</td>
+	<td>18 290 880,00</td>
+</tr>
+<tr>
+	<td>41&nbsp;%</td>
+	<td>
+			30
+			weeks, 
+			5
+			days, 
+			8
+			hours, 
+			24
+			minutes</td>
+	<td>18 606 240,00</td>
+</tr>
+<tr>
+	<td>40&nbsp;%</td>
+	<td>
+			31
+			weeks, 
+			2
+			days</td>
+	<td>18 921 600,00</td>
+</tr>
+<tr>
+	<td>39&nbsp;%</td>
+	<td>
+			31
+			weeks, 
+			5
+			days, 
+			15
+			hours, 
+			36
+			minutes</td>
+	<td>19 236 960,00</td>
+</tr>
+<tr>
+	<td>38&nbsp;%</td>
+	<td>
+			32
+			weeks, 
+			2
+			days, 
+			7
+			hours, 
+			12
+			minutes</td>
+	<td>19 552 320,00</td>
+</tr>
+<tr>
+	<td>37&nbsp;%</td>
+	<td>
+			32
+			weeks, 
+			5
+			days, 
+			22
+			hours, 
+			48
+			minutes</td>
+	<td>19 867 680,00</td>
+</tr>
+<tr>
+	<td>36&nbsp;%</td>
+	<td>
+			33
+			weeks, 
+			2
+			days, 
+			14
+			hours, 
+			24
+			minutes</td>
+	<td>20 183 040,00</td>
+</tr>
+<tr>
+	<td>35&nbsp;%</td>
+	<td>
+			33
+			weeks, 
+			6
+			days, 
+			6
+			hours</td>
+	<td>20 498 400,00</td>
+</tr>
+<tr>
+	<td>34&nbsp;%</td>
+	<td>
+			34
+			weeks, 
+			2
+			days, 
+			21
+			hours, 
+			36
+			minutes</td>
+	<td>20 813 760,00</td>
+</tr>
+<tr>
+	<td>33&nbsp;%</td>
+	<td>
+			34
+			weeks, 
+			6
+			days, 
+			13
+			hours, 
+			12
+			minutes</td>
+	<td>21 129 120,00</td>
+</tr>
+<tr>
+	<td>32&nbsp;%</td>
+	<td>
+			35
+			weeks, 
+			3
+			days, 
+			4
+			hours, 
+			48
+			minutes</td>
+	<td>21 444 480,00</td>
+</tr>
+<tr>
+	<td>31&nbsp;%</td>
+	<td>
+			35
+			weeks, 
+			6
+			days, 
+			20
+			hours, 
+			24
+			minutes</td>
+	<td>21 759 840,00</td>
+</tr>
+<tr>
+	<td>30&nbsp;%</td>
+	<td>
+			36
+			weeks, 
+			3
+			days, 
+			12
+			hours</td>
+	<td>22 075 200,00</td>
+</tr>
+<tr>
+	<td>29&nbsp;%</td>
+	<td>
+			37
+			weeks
+			3
+			hours, 
+			36
+			minutes</td>
+	<td>22 390 560,00</td>
+</tr>
+<tr>
+	<td>28&nbsp;%</td>
+	<td>
+			37
+			weeks, 
+			3
+			days, 
+			19
+			hours, 
+			12
+			minutes</td>
+	<td>22 705 920,00</td>
+</tr>
+<tr>
+	<td>27&nbsp;%</td>
+	<td>
+			38
+			weeks
+			10
+			hours, 
+			48
+			minutes</td>
+	<td>23 021 280,00</td>
+</tr>
+<tr>
+	<td>26&nbsp;%</td>
+	<td>
+			38
+			weeks, 
+			4
+			days, 
+			2
+			hours, 
+			24
+			minutes</td>
+	<td>23 336 640,00</td>
+</tr>
+<tr>
+	<td>25&nbsp;%</td>
+	<td>
+			39
+			weeks
+			18
+			hours</td>
+	<td>23 652 000,00</td>
+</tr>
+<tr>
+	<td>24&nbsp;%</td>
+	<td>
+			39
+			weeks, 
+			4
+			days, 
+			9
+			hours, 
+			36
+			minutes</td>
+	<td>23 967 360,00</td>
+</tr>
+<tr>
+	<td>23&nbsp;%</td>
+	<td>
+			40
+			weeks, 
+			1
+			day, 
+			1
+			hour, 
+			12
+			minutes</td>
+	<td>24 282 720,00</td>
+</tr>
+<tr>
+	<td>22&nbsp;%</td>
+	<td>
+			40
+			weeks, 
+			4
+			days, 
+			16
+			hours, 
+			48
+			minutes</td>
+	<td>24 598 080,00</td>
+</tr>
+<tr>
+	<td>21&nbsp;%</td>
+	<td>
+			41
+			weeks, 
+			1
+			day, 
+			8
+			hours, 
+			24
+			minutes</td>
+	<td>24 913 440,00</td>
+</tr>
+<tr>
+	<td>20&nbsp;%</td>
+	<td>
+			41
+			weeks, 
+			5
+			days</td>
+	<td>25 228 800,00</td>
+</tr>
+<tr>
+	<td>19&nbsp;%</td>
+	<td>
+			42
+			weeks, 
+			1
+			day, 
+			15
+			hours, 
+			36
+			minutes</td>
+	<td>25 544 160,00</td>
+</tr>
+<tr>
+	<td>18&nbsp;%</td>
+	<td>
+			42
+			weeks, 
+			5
+			days, 
+			7
+			hours, 
+			12
+			minutes</td>
+	<td>25 859 520,00</td>
+</tr>
+<tr>
+	<td>17&nbsp;%</td>
+	<td>
+			43
+			weeks, 
+			1
+			day, 
+			22
+			hours, 
+			48
+			minutes</td>
+	<td>26 174 880,00</td>
+</tr>
+<tr>
+	<td>16&nbsp;%</td>
+	<td>
+			43
+			weeks, 
+			5
+			days, 
+			14
+			hours, 
+			24
+			minutes</td>
+	<td>26 490 240,00</td>
+</tr>
+<tr>
+	<td>15&nbsp;%</td>
+	<td>
+			44
+			weeks, 
+			2
+			days, 
+			6
+			hours</td>
+	<td>26 805 600,00</td>
+</tr>
+<tr>
+	<td>14&nbsp;%</td>
+	<td>
+			44
+			weeks, 
+			5
+			days, 
+			21
+			hours, 
+			36
+			minutes</td>
+	<td>27 120 960,00</td>
+</tr>
+<tr>
+	<td>13&nbsp;%</td>
+	<td>
+			45
+			weeks, 
+			2
+			days, 
+			13
+			hours, 
+			12
+			minutes</td>
+	<td>27 436 320,00</td>
+</tr>
+<tr>
+	<td>12&nbsp;%</td>
+	<td>
+			45
+			weeks, 
+			6
+			days, 
+			4
+			hours, 
+			48
+			minutes</td>
+	<td>27 751 680,00</td>
+</tr>
+<tr>
+	<td>11&nbsp;%</td>
+	<td>
+			46
+			weeks, 
+			2
+			days, 
+			20
+			hours, 
+			24
+			minutes</td>
+	<td>28 067 040,00</td>
+</tr>
+<tr>
+	<td>10&nbsp;%</td>
+	<td>
+			46
+			weeks, 
+			6
+			days, 
+			12
+			hours</td>
+	<td>28 382 400,00</td>
+</tr>
+<tr>
+	<td>9&nbsp;%</td>
+	<td>
+			47
+			weeks, 
+			3
+			days, 
+			3
+			hours, 
+			36
+			minutes</td>
+	<td>28 697 760,00</td>
+</tr>
+<tr>
+	<td>8&nbsp;%</td>
+	<td>
+			47
+			weeks, 
+			6
+			days, 
+			19
+			hours, 
+			12
+			minutes</td>
+	<td>29 013 120,00</td>
+</tr>
+<tr>
+	<td>7&nbsp;%</td>
+	<td>
+			48
+			weeks, 
+			3
+			days, 
+			10
+			hours, 
+			48
+			minutes</td>
+	<td>29 328 480,00</td>
+</tr>
+<tr>
+	<td>6&nbsp;%</td>
+	<td>
+			49
+			weeks
+			2
+			hours, 
+			24
+			minutes</td>
+	<td>29 643 840,00</td>
+</tr>
+<tr>
+	<td>5&nbsp;%</td>
+	<td>
+			49
+			weeks, 
+			3
+			days, 
+			18
+			hours</td>
+	<td>29 959 200,00</td>
+</tr>
+<tr>
+	<td>4&nbsp;%</td>
+	<td>
+			50
+			weeks
+			9
+			hours, 
+			36
+			minutes</td>
+	<td>30 274 560,00</td>
+</tr>
+<tr>
+	<td>3&nbsp;%</td>
+	<td>
+			50
+			weeks, 
+			4
+			days, 
+			1
+			hour, 
+			12
+			minutes</td>
+	<td>30 589 920,00</td>
+</tr>
+<tr>
+	<td>2&nbsp;%</td>
+	<td>
+			51
+			weeks
+			16
+			hours, 
+			48
+			minutes</td>
+	<td>30 905 280,00</td>
+</tr>
+<tr>
+	<td>1&nbsp;%</td>
+	<td>
+			51
+			weeks, 
+			4
+			days, 
+			8
+			hours, 
+			24
+			minutes</td>
+	<td>31 220 640,00</td>
+</tr>
+<tr>
+	<td>0.5&nbsp;%</td>
+	<td>
+			51
+			weeks, 
+			6
+			days, 
+			4
+			hours, 
+			12
+			minutes</td>
+	<td>31 378 320,00</td>
+</tr>
+<tr>
+	<td>0.1&nbsp;%</td>
+	<td>
+			52
+			weeks
+			15
+			hours, 
+			14
+			minutes, 
+			24
+			seconds</td>
+	<td>31 504 464,00</td>
+</tr>
+<tr>
+	<td>0.01&nbsp;%</td>
+	<td>
+			52
+			weeks
+			23
+			hours, 
+			7
+			minutes, 
+			26
+			seconds</td>
+	<td>31 532 846,40</td>
+</tr></table></p>
 
-        html += "<table class='table table-striped table-hover'>\n";
+				</section>
+			</article>
+		</main>
+	</div> 
+	
+	
 
-        html += "<thead>";
-        html += "<tr>";
-        html += "  <td>";
-        html += "Percentage";
-        html += "</td>\n";
-        html += "  <td>";
-        html += "Time";
-        html += "</td>\n";
-        html += "  <td>";
-        html += "In seconds";
-        html += "</td>\n";
-        html += "</thead>\n";
+<div class="col-sm-3 col-sm-offset-1 doc-sidebar">
+	<div id="sidebar">
+	<div class="sidebar-module">
+		<div class="sidebar-toc">
+			<h4 class="sidebar-heading">Table of Contents</h4>
+			<ul>
+				<li><strong><a href="#title">Uptime</a></strong></li>
+			</ul>
+			<nav id="TableOfContents">
+<ul>
+<li><a href="#using-month-as-time-span">Using month as time span</a></li>
+<li><a href="#using-year-as-time-span">Using year as time span</a></li>
+</ul>
+</nav>
+		</div>
+	</div>
+	<div class="sidebar-module">
+		<h4 class="sidebar-heading">Pages</h4>
+		<ul class="sidebar-category-list">
+		
+			<li>
+					<span class="doc-list-category">Projects</span>
+				<ul>
+					<li><a href="/projects/buildingnas/">Building NAS</a>
+					</li>
+				
+					<li><a href="/projects/hdzise/">Hard disk space loss</a>
+					</li>
+				
+					<li><a href="/projects/screenjournal/">ScreenJournal</a>
+					</li>
+				
+					<li>
+						<span class="active">Uptime</span>
+						</li>
+				
+					<li><a href="/projects/winlldpservice/">WinLLDPService</a>
+					</li>
+				
+				</ul>
+			</li>
+		
+		</ul>
+	</div>
 
-        for (var i = 0; i < percentages.length; i++) {
-            percentage = percentages[i];
-            secs = (100 - percentage) / 100 *  seconds;
+	</div>
+</div>
+	
+</div> 
 
-            html += "<tr>";
-            html += "  <td>";
-            html += percentage + " %";
-            html += "</td>\n";
-            html += "  <td>";
-            html += secondsToTime(secs, _units);
-            html += "</td>\n";
-            html += "  <td>";
-            html += number.format(secs);
-            html += "</td>\n";
-            html += "</tr>\n";
-
-        }
-
-        html += "</table>\n\n";
-
-        return html;
-    }
-
-/*
-********************************************************************************
-*/
-
-    // Percentages
-    var percentages = [0.1, 0.5];
-
-    for (var i = 1; i <= 99; i++) {
-        percentages.push(i);
-    }
-
-    percentages.push(99.5);
-    percentages.push(99.9);
-    percentages.push(99.99);
-    percentages.push(99.999);
-    percentages.push(99.9999);
-    percentages.push(99.99999);
-
-    percentages = percentages.reverse();
-
-    // Year
-    var yearseconds = 60 * 60 * 24 * 365;
-
-    var html = "";
-    html += "<p>";
-    html += "Using " + yearseconds + " seconds per year (average).";
-    html += "</p>";
-
-    domConstruct.place(html, "slatimesyear", "only");
-    domConstruct.place(percentagesToTable(percentages, yearseconds), "slatimesyear", "append");
-
-    // Month
-    var monthseconds = 60 * 60 * 24 * 30;
-
-    var html = "";
-    html += "<p>";
-    html += "Using " + monthseconds + " seconds per month (average).";
-    html += "</p>";
-
-    domConstruct.place(html, "slatimesmonth", "only");
-    domConstruct.place(percentagesToTable(percentages, monthseconds), "slatimesmonth", "append");
-
-});
-</script>
-
-<h1>Uptime  / downtime SLA % times</h1>
-
-<p>How long service can be down?</p>
-
-<h2>Downtimes per year.</h2>
-
-<div id="slatimesyear">Loading..</div>
-
-<h2>Downtimes per month</h2>
-
-<div id="slatimesmonth">Loading..</div>
 
 <hr />
 
-<p>This page was last updated on 2017-02-09T16:00:59+0200.</p>
+<div class="row">
+	<div class="col-sm-8">
+		<p class="doc-footer-em"><a href="#" onclick="resetSidebarPos()">Back to TOP</a></p>
+	</div>
+</div>
 
+</div> 
 
+<footer class="doc-footer">
+	<p class="doc-footer-em">Browse <strong><a href="https://github.com/raspi">Repository</a></strong></p>
+	<p>Copyright (c) 2012-, Pekka Järvinen; All rights reserved.</p>
+	<p>Powered by <strong><a href="https://github.com/progrhyme/hugo-theme-bootie-docs">Bootie Docs</a></strong> - theme for <a href="http://gohugo.io/">Hugo</a> by <a href="https://github.com/progrhyme/">progrhyme</a>.</p>
+</footer>
 
-            <hr>
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-37317362-1', 'auto');
+	ga('send', 'pageview');
+</script>
 
-            <footer>
-                <p>&copy; <a href='http://raspi.fi/'>Pekka "raspi" Järvinen</a></p>
-            </footer>
+<script src="//js/jquery.min.js"></script>
+<script src="//js/bootstrap.min.js"></script>
 
-        </div> <!-- /container -->
+<script src="//js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="//js/ie10-viewport-bug-workaround.js"></script>
+<script src="//js/bootie-docs.js"></script>
 
-
-
-        <script>
-            var _gaq = [['_setAccount', 'UA-37317362-1'], ['_trackPageview']];
-            (function (d, t) {
-                var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
-                g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
-                s.parentNode.insertBefore(g, s)
-            }(document, 'script'));
-        </script>        
-
-    </body>
+</body>
 </html>
-

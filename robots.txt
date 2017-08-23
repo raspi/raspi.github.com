@@ -1,5 +1,0 @@
-# For robots
-User-agent: *
-Disallow: 
-Crawl-delay: 120
-Disallow: /bootstrap/
