@@ -1,0 +1,20 @@
+{{ $baseUrl := .Site.BaseURL }}
+{{ partial "header.html" . }}
+
+<main role="main">
+
+<div class="row">
+	<!-- Main jumbotron for a primary marketing message or call to action -->
+	<div class="jumbotron">
+		<h1>{{ .Site.Title }}</h1>
+		<p>{{ with .Site.Params.description }}{{ . }}{{ else }}You can customize this text by params "description" in your <code>config.toml</code>.{{ end }}</p>
+	</div>
+</div>
+
+	<div class="row doc-main">
+		Page was not found. Maybe it was relocated? See <a href="/">front page</a>.
+	</div>
+
+</main>
+
+{{ partial "footer.html" . }}
