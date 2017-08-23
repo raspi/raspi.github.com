@@ -45,4 +45,4 @@ Get-ChildItem "content" -Filter "*.md" -Recurse | ForEach-Object {
 	Write-Host ""
 }
 
-C:\hugo\hugo.exe --verbose --destination "$releaseDir"
+C:\hugo\hugo.exe --verbose --log --destination "$releaseDir"

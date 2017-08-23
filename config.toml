@@ -2,7 +2,7 @@ theme = "default"
 baseURL = "/"
 languageCode = "en-us"
 title = "raspi@GitHub"
-copyright = "Copyright (c) 2017, Pekka Järvinen; All rights reserved."
+copyright = "Copyright (c) 2012-, Pekka Järvinen; All rights reserved."
 disableKinds = ["RSS", "taxonomy", "taxonomyTerm"]
 
 [params]
@@ -12,7 +12,14 @@ disableKinds = ["RSS", "taxonomy", "taxonomyTerm"]
   noCategoryLink = true
   repositoryUrl  = "https://github.com/raspi"
   highlightStyle = "github"
-  
+  analytics = "UA-37317362-1"
+  gverification = "c6r4YUg5mxq7D7PRfX2K-eUcAYv6Awu0F-cU3caM9dc"
+
+[sitemap]
+  changefreq = "monthly"
+  priority = 0.5
+  filename = "sitemap.xml"
+
 [[menu.main]]
   name   = "Projects"
   url    = "/projects/"
