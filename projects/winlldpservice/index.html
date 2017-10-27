@@ -6,7 +6,7 @@
 		<meta name="google-site-verification" content="c6r4YUg5mxq7D7PRfX2K-eUcAYv6Awu0F-cU3caM9dc" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="icon" href="/favicon.ico">
-		<title>WinLLDPService - raspi@GitHub</title>
+		<title> - raspi@GitHub</title>
 		<link rel="stylesheet" href="/css/highlight/github.css">
 		<link rel="stylesheet" href="/css/bootstrap.min.css">
 		<link rel="stylesheet" href="/css/bootstrap-theme.min.css">
@@ -47,329 +47,53 @@
 
 <div class="container">
 
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
-<div class="row">
-	<div class="col-sm-8 doc-main">
-		<main role="main">
-			<article>
-				<a id="title"></a>
-				<h1 class="doc-entry-title">WinLLDPService</h1>
-				<section>
-					
-
-<p>WinLLDPService is free, open source and tiny Windows service. It sends Windows&rsquo; machine network information via <a href="https://en.wikipedia.org/wiki/Link_Layer_Discovery_Protocol">LLDP</a> so that network administrators can find computers with ease. See also <a href="https://en.wikipedia.org/wiki/Simple_Network_Management_Protocol">SNMP</a> as it&rsquo;s often used to gather more detailed information from network devices.</p>
-
-<p>WinLLDPService acts only as an announcer to the switch (sends packets to the switch). <strong>It will not query switches&rsquo; internal LLDP data</strong>.</p>
-
-<p>Possible errors are logged to Windows Event Log.</p>
-
-<p>Report possible bugs and feature requests to <a href="https://github.com/raspi/WinLLDPService/issues">issues page</a>.</p>
-
-<h1 id="requirements">Requirements:</h1>
-
-<ul>
-<li><a href="https://www.winpcap.org/">WinPcap</a></li>
-</ul>
-
-<h1 id="download-from-github">Download from GitHub</h1>
-
-<div id="githubrelease"></div>
-
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5396746781472027"
+     data-ad-slot="6167495996"></ins>
 <script>
-function getTimeDelta(date_now, date_future) {
-	var d = Math.abs(date_future - date_now) / 1000;
-	
-	var s = {
-		week: 604800,
-		day: 86400,
-		hour: 3600,
-		minute: 60,
-		second: 1
-	};
-
-	var r = {};
-	
-	Object.keys(s).forEach(function(key) {
-		r[key] = Math.floor(d / s[key]);
-		d -= r[key] * s[key];
-	});
-	
-	return r;
-}
-
-function timeDeltaToString(delta) {
-	var o = ""
-	Object.keys(delta).forEach(function(key) {
-		o += delta[key] + " " + key + "(s), "
-		
-	});
-	
-	o = o.slice(0,-2);
-	
-	return o;
-}
-
-document.addEventListener("DOMContentLoaded", function(event) { 
-$.getJSON( "https://api.github.com/repos/raspi/WinLLDPService/releases", function( data ) {
-
-  var limit = 5;
-  var idx = 1;
-  
-  $.each( data, function( key, val ) {
-
-  var releasedata = {
-    "pre": val.prerelease,
-    "name": val.name,
-    "date": new Date(val.published_at),
-    "url": val.html_url,
-	"files": []
-  };
-  
-  var divclass = "bg-info";
-  
-  if (true === releasedata.pre) {
-    divclass = "bg-danger";
-  }
-  
-  var files = [];
-  
-  $.each( val.assets, function( key, val ) {
-    files.push({
-	  "name": val.name,
-	  "size": val.size,
-	  "url": val.browser_download_url,
-	  "dlcount": val.download_count
-	});
-  });
-  
-  releasedata["files"] = files;
-  
-  var relhtml = ""
-  
-  var reldiff = getTimeDelta(new Date(), releasedata.date);
-  
-  relhtml += "<strong>" + releasedata.name + "</strong> released @ " + releasedata.date.toISOString().slice(0, 10) + " ";
-  relhtml += "<small><a href='" + releasedata.url + "'>GitHub release page</a></small><br />";
-  relhtml += timeDeltaToString(reldiff) + " ago.";
-  
-  var flisthtml = "<table class='table table-striped'>"
-  flisthtml += "<thead>";
-  flisthtml += "<tr>";
-  flisthtml += "<td>File</td>";
-  flisthtml += "<td>Size (bytes)</td>";
-  flisthtml += "<td>Downloads</td>";
-  flisthtml += "</tr>";
-  flisthtml += "</thead><tbody class='table-hover'>";
-
-  $.each( releasedata.files, function( key, val ) {
-    flisthtml += "<tr>";
-	flisthtml += "<td><a href='" + val.url + "'>" + val.name + "</a></td>";
-	flisthtml += "<td>" + val.size + "</td>";
-	flisthtml += "<td>" + val.dlcount + "</td>";
-	flisthtml += "</tr>";
-  });
-flisthtml += "</tbody></table>";
-
-  $( "<div/>", {
-    html: "<p class='" + divclass + "'>" + relhtml + flisthtml + "</p><hr />"
-  }).appendTo( "#githubrelease" );
-  
-  idx++;
-  
-  if (idx >= limit) {
-  return;
-  }
-  
-  });
-  
-});
-
-});
-
+(adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<p>Sources can be found at <a href="https://github.com/raspi/WinLLDPService">GitHub</a>.</p>
+<div class="row">
+	<div class="doc-list-header">
+		<h3></h3>
+		
+	</div>
 
-<p>See <a href="https://github.com/raspi/WinLLDPService/releases">GitHub Releases page</a> for downloads if list above failed to load.</p>
+	<div class="col-md-5 project-box">
+		
+		<div class="">
 
-<h1 id="install-with-chocolatey">Install with Chocolatey</h1>
-
-<p><code>choco install winlldpservice</code></p>
-
-<p>See <a href="https://chocolatey.org/packages/winlldpservice">chocolatey site</a> for additional information.</p>
-
-<h1 id="screenshots">Screenshots</h1>
-
-<p><div class="gallery" itemscope itemtype="http://schema.org/ImageGallery">
-
-
-<figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-    <a href="screenshot.png"  itemprop="contentUrl"> 
-        <img itemprop="thumbnail"
-            src="screenshot.png"
-            alt="Windows Services"
-            width="100"/>
-    </a>
-    
-    <figcaption>
-        
-        
-        <p>
-        Windows Services
-        
-        </p>
-        
-    </figcaption>
-    
-</figure>
-<figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-    <a href="screenshot2.png"  itemprop="contentUrl"> 
-        <img itemprop="thumbnail"
-            src="screenshot2.png"
-            alt="View from HP switch"
-            width="100"/>
-    </a>
-    
-    <figcaption>
-        
-        
-        <p>
-        View from HP switch
-        
-        </p>
-        
-    </figcaption>
-    
-</figure>
-
-
-<div class="title">Screenshots</div>
-</div>
-<link rel="stylesheet" href="/css/pswp-gallery.css" /></p>
-
-<h1 id="tested-with">Tested with</h1>
-
-<ul>
-<li>Windows Server 2012 R2</li>
-<li>Windows 10 Professional edition 64 bit</li>
-<li>Windows 7 Ultimate edition 64 bit with Service Pack 1</li>
-<li>Windows 7 Professional edition 64 bit with Service Pack 1</li>
-</ul>
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css" integrity="sha256-sCl5PUOGMLfFYctzDW3MtRib0ctyUvI9Qsmq2wXOeBY=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/default-skin/default-skin.min.css" integrity="sha256-BFeI1V+Vh1Rk37wswuOYn5lsTcaU96hGaI7OUVCLjPc=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js" integrity="sha256-UplRCs9v4KXVJvVY+p+RSo5Q4ilAUXh7kpjyIP5odyc=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js" integrity="sha256-PWHOlUzc96pMc8ThwRIXPn8yH4NOLu42RQ0b9SpnpFk=" crossorigin="anonymous"></script>
-
-
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-<div class="pswp__bg"></div>
-
-<div class="pswp__scroll-wrap">
-    
-    <div class="pswp__container">
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-    </div>
-    
-    <div class="pswp__ui pswp__ui--hidden">
-    <div class="pswp__top-bar">
-      
-      <div class="pswp__counter"></div>
-      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-      <button class="pswp__button pswp__button--share" title="Share"></button>
-      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-      
-      
-      <div class="pswp__preloader">
-        <div class="pswp__preloader__icn">
-          <div class="pswp__preloader__cut">
-            <div class="pswp__preloader__donut"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-      <div class="pswp__share-tooltip"></div>
-    </div>
-    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-    </button>
-    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-    </button>
-    <div class="pswp__caption">
-      <div class="pswp__caption__center"></div>
-    </div>
-    </div>
-    </div>
-</div>
-
-
-
-<script src="/js/pswp-init.js"></script>
-
-
-				</section>
-			</article>
-		</main>
-	</div> 
-	
-	
-
-<div class="col-sm-3 col-sm-offset-1 doc-sidebar">
-	<div id="sidebar">
-	<div class="sidebar-module">
-		<div class="sidebar-toc">
-			<h4 class="sidebar-heading">Table of Contents</h4>
-			<ul>
-				<li><strong><a href="#title">WinLLDPService</a></strong></li>
-			</ul>
-			<nav id="TableOfContents">
-<ul>
-<li><a href="#requirements">Requirements:</a></li>
-<li><a href="#download-from-github">Download from GitHub</a></li>
-<li><a href="#install-with-chocolatey">Install with Chocolatey</a></li>
-<li><a href="#screenshots">Screenshots</a></li>
-<li><a href="#tested-with">Tested with</a></li>
-</ul>
-</nav>
+			<h4>&raquo;<a class="" href="/projects/winlldpservice/installerror/">
+				<span class="">WinLLDPService install error</span>
+			</a></h4>
+			
+			
 		</div>
-	</div>
-	<div class="sidebar-module">
-		<h4 class="sidebar-heading">Pages</h4>
-		<ul class="sidebar-category-list">
 		
-			<li>
-					<span class="doc-list-category">Projects</span>
-				<ul>
-					<li><a href="/projects/buildingnas/">Building NAS</a>
-					</li>
-				
-					<li><a href="/projects/hdsize/">Hard disk space loss</a>
-					</li>
-				
-					<li><a href="/projects/screenjournal/">ScreenJournal</a>
-					</li>
-				
-					<li><a href="/projects/uptime/">Uptime</a>
-					</li>
-				
-					<li>
-						<span class="active">WinLLDPService</span>
-						</li>
-				
-				</ul>
-			</li>
+		<div class="">
+
+			<h4>&raquo;<a class="" href="/projects/winlldpservice/install/">
+				<span class="">WinLLDPService installed</span>
+			</a></h4>
+			
+			
+		</div>
 		
-		</ul>
+		<div class="">
+
+			<h4>&raquo;<a class="" href="/projects/winlldpservice/uninstall/">
+				<span class="">WinLLDPService uninstalled</span>
+			</a></h4>
+			
+			
+		</div>
+		
 	</div>
 
-	</div>
-</div>
-	
 </div> 
 
 
