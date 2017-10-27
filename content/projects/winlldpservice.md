@@ -1,7 +1,7 @@
 ﻿---
 title: "WinLLDPService"
 description: "WinLLDPService is free, open source and tiny Windows service. It sends Windows' machine network information via LLDP so that network administrators can find computers with ease."
-date: 2017-08-23T20:05:48+03:00
+date: 2017-10-27T00:54:22+03:00
 draft: false
 categories: [projects]
 tags: [projects]
@@ -17,9 +17,13 @@ Report possible bugs and feature requests to [issues page](https://github.com/ra
 
 # Requirements:
 
- * [WinPcap](https://www.winpcap.org/)
+ * Capture library supported by Sharppcap for example
+   * [Npcap](https://nmap.org/npcap/)
+   * [WinPcap](https://www.winpcap.org/)
+   * or other
 
 # Download from GitHub
+[![Github All Releases](https://img.shields.io/github/downloads/raspi/WinLLDPService/total.svg)](https://github.com/raspi/WinLLDPService)
 
 <div id="githubrelease"></div>
 
