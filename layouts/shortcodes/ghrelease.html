@@ -1,4 +1,15 @@
 <script>
+function getReadableFileSizeString(fileSizeInBytes) {
+    var i = -1;
+    var byteUnits = ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+    do {
+        fileSizeInBytes = fileSizeInBytes / 1024;
+        i++;
+    } while (fileSizeInBytes > 1024);
+
+    return Math.max(fileSizeInBytes, 0.1).toFixed(1) + " " + byteUnits[i];
+};
+
 function getTimeDelta(date_now, date_future) {
 	var d = Math.abs(date_future - date_now) / 1000;
 	
@@ -79,7 +90,7 @@ $.getJSON( "https://api.github.com/repos/raspi/WinLLDPService/releases", functio
   flisthtml += "<thead>";
   flisthtml += "<tr>";
   flisthtml += "<td>File</td>";
-  flisthtml += "<td>Size (bytes)</td>";
+  flisthtml += "<td>Size</td>";
   flisthtml += "<td>Downloads</td>";
   flisthtml += "</tr>";
   flisthtml += "</thead><tbody class='table-hover'>";
@@ -87,7 +98,7 @@ $.getJSON( "https://api.github.com/repos/raspi/WinLLDPService/releases", functio
   $.each( releasedata.files, function( key, val ) {
     flisthtml += "<tr>";
 	flisthtml += "<td><a href='" + val.url + "'>" + val.name + "</a></td>";
-	flisthtml += "<td>" + val.size + "</td>";
+	flisthtml += "<td>" + getReadableFileSizeString(val.size) + "</td>";
 	flisthtml += "<td>" + val.dlcount + "</td>";
 	flisthtml += "</tr>";
   });
