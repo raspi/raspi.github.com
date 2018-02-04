@@ -77,13 +77,14 @@
 <h1 id="requirements">Requirements:</h1>
 
 <ul>
-<li>Capture library supported by Sharppcap for example
+<li>Capture library supported by Sharppcap for example:
 
 <ul>
 <li><a href="https://nmap.org/npcap/">Npcap</a></li>
 <li><a href="https://www.winpcap.org/">WinPcap</a></li>
 <li>or other</li>
 </ul></li>
+<li>Microsoft PowerShell</li>
 </ul>
 
 <h1 id="download-from-github">Download from GitHub</h1>
@@ -93,6 +94,17 @@
 <div id="githubrelease"></div>
 
 <script>
+function getReadableFileSizeString(fileSizeInBytes) {
+    var i = -1;
+    var byteUnits = ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+    do {
+        fileSizeInBytes = fileSizeInBytes / 1024;
+        i++;
+    } while (fileSizeInBytes > 1024);
+
+    return Math.max(fileSizeInBytes, 0.1).toFixed(1) + " " + byteUnits[i];
+};
+
 function getTimeDelta(date_now, date_future) {
 	var d = Math.abs(date_future - date_now) / 1000;
 	
@@ -173,7 +185,7 @@ $.getJSON( "https://api.github.com/repos/raspi/WinLLDPService/releases", functio
   flisthtml += "<thead>";
   flisthtml += "<tr>";
   flisthtml += "<td>File</td>";
-  flisthtml += "<td>Size (bytes)</td>";
+  flisthtml += "<td>Size</td>";
   flisthtml += "<td>Downloads</td>";
   flisthtml += "</tr>";
   flisthtml += "</thead><tbody class='table-hover'>";
@@ -181,7 +193,7 @@ $.getJSON( "https://api.github.com/repos/raspi/WinLLDPService/releases", functio
   $.each( releasedata.files, function( key, val ) {
     flisthtml += "<tr>";
 	flisthtml += "<td><a href='" + val.url + "'>" + val.name + "</a></td>";
-	flisthtml += "<td>" + val.size + "</td>";
+	flisthtml += "<td>" + getReadableFileSizeString(val.size) + "</td>";
 	flisthtml += "<td>" + val.dlcount + "</td>";
 	flisthtml += "</tr>";
   });
@@ -217,7 +229,7 @@ flisthtml += "</tbody></table>";
 
 <h1 id="screenshots">Screenshots</h1>
 
-<p><div class="gallery" itemscope itemtype="http://schema.org/ImageGallery">
+<div class="gallery" itemscope itemtype="http://schema.org/ImageGallery">
 
 
 <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
@@ -262,7 +274,7 @@ flisthtml += "</tbody></table>";
 
 <div class="title">Screenshots</div>
 </div>
-<link rel="stylesheet" href="/css/pswp-gallery.css" /></p>
+<link rel="stylesheet" href="/css/pswp-gallery.css" />
 
 <h1 id="tested-with">Tested with</h1>
 
@@ -272,6 +284,65 @@ flisthtml += "</tbody></table>";
 <li>Windows 7 Ultimate edition 64 bit with Service Pack 1</li>
 <li>Windows 7 Professional edition 64 bit with Service Pack 1</li>
 </ul>
+
+<h1 id="configuring">Configuring</h1>
+
+<p>WinLLDPService uses <a href="https://docs.microsoft.com/en-us/powershell/">PowerShell</a> for it&rsquo;s configuration. You must set execution policy accordingly. See <a href="https:/go.microsoft.com/fwlink/?LinkID=135170">About Execution Policies @ Microsoft</a>.</p>
+
+<p>Search paths are:</p>
+
+<ul>
+<li><code>$Env:APPDATA\WinLLDPService\</code></li>
+<li><code>$Env:LOCALAPPDATA\WinLLDPService\</code></li>
+<li>Registry: <code>HKLM:Software\WinLLDPService</code> <code>InstallPath</code> value.</li>
+<li>Current directory of WinLLDPService.exe</li>
+</ul>
+
+<p>These are translated to:</p>
+
+<ul>
+<li><code>C:\WINDOWS\system32\config\systemprofile\AppData\Local\WinLLDPService\</code></li>
+<li><code>C:\WINDOWS\system32\config\systemprofile\AppData\Roaming\WinLLDPService\</code></li>
+<li><code>C:\Program Files\WinLLDPService\</code> (default install path x64)</li>
+<li><code>C:\Program Files (x86)\WinLLDPService\</code> (default install path x86)</li>
+</ul>
+
+<p>Filenames that are searched:</p>
+
+<ul>
+<li><code>Configuration.ps1</code></li>
+<li><code>Configuration.default.ps1</code></li>
+</ul>
+
+<p>If <code>Configuration.ps1</code> is not found then <code>Configuration.default.ps1</code> is used.</p>
+
+<p>The search is run once after service starts. To rescan paths simply restart the service.</p>
+
+<p>The configuration file is run each time before packet is sent.</p>
+
+<h2 id="example-configuration-file">Example configuration file</h2>
+
+<p>To make your own custom configuration simply copy the <code>Configuration.default.ps1</code> to one of the directories mentioned above. <strong>Do not modify the installed</strong> <code>Configuration.default.ps1</code> <strong>as it may change when new version is released</strong>.</p>
+
+<p><code>C:\WINDOWS\system32\config\systemprofile\AppData\Roaming\WinLLDPService\Configuration.ps1</code>:</p>
+
+<pre><code># initialize object
+$config = New-Object WinLLDPService.Configuration
+
+$config.PortDescription.Add(&quot;port descr..&quot;)
+$config.SystemDescription.Add(&quot;sys descr..&quot;)
+$config.SystemName = &quot;my machine&quot;
+$config.Separator = &quot;|&quot;
+
+# Must always return WinLLDPService.Configuration object
+Return $config
+</code></pre>
+
+<p>For information how to get details about machine see <a href="https://docs.microsoft.com/en-us/powershell/">PowerShell Documentation</a></p>
+
+<h2 id="example-deployment">Example deployment</h2>
+
+<p>There are 10 machines. Every machine has <code>$Env:LOCALAPPDATA\WinLLDPService\Configuration.default.ps1</code>. Let&rsquo;s say 3 are virtual machines. For those machines you could create <code>$Env:LOCALAPPDATA\WinLLDPService\Configuration.ps1</code> which reports additional information.</p>
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css" integrity="sha256-sCl5PUOGMLfFYctzDW3MtRib0ctyUvI9Qsmq2wXOeBY=" crossorigin="anonymous" />
@@ -351,6 +422,11 @@ flisthtml += "</tbody></table>";
 <li><a href="#install-with-chocolatey">Install with Chocolatey</a></li>
 <li><a href="#screenshots">Screenshots</a></li>
 <li><a href="#tested-with">Tested with</a></li>
+<li><a href="#configuring">Configuring</a>
+<ul>
+<li><a href="#example-configuration-file">Example configuration file</a></li>
+<li><a href="#example-deployment">Example deployment</a></li>
+</ul></li>
 </ul>
 </nav>
 		</div>
@@ -362,6 +438,10 @@ flisthtml += "</tbody></table>";
 			<li>
 					<span class="doc-list-category">Projects</span>
 				<ul>
+					<li>
+						<span class="active">WinLLDPService</span>
+						</li>
+				
 					<li><a href="/projects/buildingnas/">Building NAS</a>
 					</li>
 				
@@ -373,10 +453,6 @@ flisthtml += "</tbody></table>";
 				
 					<li><a href="/projects/uptime/">Uptime</a>
 					</li>
-				
-					<li>
-						<span class="active">WinLLDPService</span>
-						</li>
 				
 				</ul>
 			</li>
