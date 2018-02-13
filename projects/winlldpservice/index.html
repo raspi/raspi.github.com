@@ -287,7 +287,7 @@ flisthtml += "</tbody></table>";
 
 <h1 id="configuring">Configuring</h1>
 
-<p>WinLLDPService uses <a href="https://docs.microsoft.com/en-us/powershell/">PowerShell</a> for it&rsquo;s configuration. You must set execution policy accordingly. See <a href="https:/go.microsoft.com/fwlink/?LinkID=135170">About Execution Policies @ Microsoft</a>.</p>
+<p>WinLLDPService uses <a href="https://docs.microsoft.com/en-us/powershell/">PowerShell</a> for it&rsquo;s configuration. PowerShell was chosen so that system administrators can add only the needed information. You must set PowerShell execution policy accordingly. See <a href="https://go.microsoft.com/fwlink/?LinkID=135170">About Execution Policies @ Microsoft</a>. Recommended ExecutionPolicy is <code>AllSigned</code>. See <code>Help about_signing</code> for how to sign PowerShell scripts.</p>
 
 <p>Search paths are:</p>
 
@@ -320,29 +320,171 @@ flisthtml += "</tbody></table>";
 
 <p>The configuration file is run each time before packet is sent.</p>
 
+<h2 id="example-deployment">Example deployment</h2>
+
+<p>There are 10 machines. Every machine has <code>$Env:LOCALAPPDATA\WinLLDPService\Configuration.default.ps1</code>. Let&rsquo;s say 3 are virtual machines. For those machines you could create <code>$Env:LOCALAPPDATA\WinLLDPService\Configuration.ps1</code> which reports additional information.</p>
+
+<h2 id="writing-configuration">Writing configuration</h2>
+
+<p>You can test the configuration generation from PowerShell by simply opening PowerShell prompt. This allows using <kbd>Tab</kbd> for code completion.</p>
+
+<pre><code>PS C:\Users\raspi&gt; Add-Type -Path 'C:\Program Files\WinLLDPService\LLDPBase.dll'
+PS C:\Users\raspi&gt; $config = New-Object WinLLDPService.Configuration
+PS C:\Users\raspi&gt; $config
+
+Separator         :  |
+ChassisType       : MacAddress
+PortDescription   : {}
+SystemName        : HASTUR
+SystemDescription : {}
+
+PS C:\Users\raspi&gt; $config.PortDescription.Add(&quot;test&quot;)
+PS C:\Users\raspi&gt; $config
+
+Separator         :  |
+ChassisType       : MacAddress
+PortDescription   : {test}
+SystemName        : HASTUR
+SystemDescription : {}
+
+PS C:\Users\raspi&gt; $config.ToString()
+WinLLDPService.Configuration
+Chassis type: 'MacAddress'
+System name: 'MYPC'
+Port description: 'test'
+System description: ''
+</code></pre>
+
 <h2 id="example-configuration-file">Example configuration file</h2>
 
 <p>To make your own custom configuration simply copy the <code>Configuration.default.ps1</code> to one of the directories mentioned above. <strong>Do not modify the installed</strong> <code>Configuration.default.ps1</code> <strong>as it may change when new version is released</strong>.</p>
 
-<p><code>C:\WINDOWS\system32\config\systemprofile\AppData\Roaming\WinLLDPService\Configuration.ps1</code>:</p>
+<p>For information how to get details about machine see <a href="https://docs.microsoft.com/en-us/powershell/">PowerShell Documentation</a>.</p>
 
-<pre><code># initialize object
+<p>Example <code>C:\WINDOWS\system32\config\systemprofile\AppData\Roaming\WinLLDPService\Configuration.ps1</code>:</p>
+
+<pre><code># Fetch system specific information
+
+# -- Get Operating system name such as &quot;Win 10 Pro&quot;
+$replaceTable = @{
+    &quot;Microsoft&quot; = &quot;&quot;
+    &quot;Windows&quot; = &quot;Win&quot;
+    &quot;Professional&quot; = &quot;Pro&quot;
+    &quot;Ultimate&quot; = &quot;Ult&quot;
+    &quot;Enterprise&quot; = &quot;Ent&quot;
+    &quot;Edition&quot; = &quot;Ed&quot;
+    &quot;Service Pack&quot; = &quot;SP&quot;
+}
+
+$operatingsystem = (Get-WmiObject Caption -Class Win32_OperatingSystem | Select-Object -ExpandProperty Caption)
+$replaceTable.GetEnumerator() | ForEach-Object {
+    $operatingsystem = $operatingsystem -replace $_.Key, $_.Value
+}
+
+$operatingsystem = $operatingsystem.Trim()
+
+# -- Get serial number
+$serialnumber = (Get-WmiObject SerialNumber -Class Win32_bios | Select-Object -ExpandProperty SerialNumber)
+
+# -- Get processor ID
+$processorid = (Get-WmiObject ProcessorId -Class Win32_Processor | Select-Object -ExpandProperty ProcessorId)
+
+# -- Get logged in user list (not recommended for LLDP, see SNMP)
+$explorerprocesses = @(Get-WmiObject -Query &quot;SELECT * FROM Win32_Process WHERE Name='explorer.exe'&quot; -ErrorAction SilentlyContinue)
+
+$logged_in_users_list = @{}
+
+if ($explorerprocesses.Count -ne 0)
+{
+    foreach ($i in $explorerprocesses)
+    {
+        $username = $i.GetOwner().User
+        $domain = $i.GetOwner().Domain.ToLower()
+        if(!$logged_in_users_list.ContainsKey($domain)) {
+            $logged_in_users_list.Add($domain, $username)
+        }
+    }
+}
+
+# change to &lt;domain&gt;: user1, user2, ..
+$logged_in_users_list = $logged_in_users_list | Sort-Object
+$logged_in_users = &quot;&quot;
+foreach($dom in $logged_in_users_list.KEYS.GetEnumerator()) {
+  $logged_in_users += $dom + &quot;: &quot;
+  foreach($user in $logged_in_users_list[$dom]) {
+    $logged_in_users += $user + &quot;, &quot;
+  }
+}
+$logged_in_users = $logged_in_users.Trim().TrimEnd(',')
+
+# -- Get uptime (not recommended for LLDP, see SNMP)
+$up = (Get-Date) - [Management.ManagementDateTimeConverter]::ToDateTime((Get-WmiObject LastBootUpTime -Class Win32_OperatingSystem).LastBootUpTime)
+# change to XXXdXXhXXmXXs
+$uptime = &quot;{0:D3}d{1:D2}h{2:D2}m{3:D2}s&quot; -f $up.Days, $up.Hours, $up.Minutes, $up.Seconds
+
+
+# Initialize WinLLDPService.Configuration object
 $config = New-Object WinLLDPService.Configuration
 
-$config.PortDescription.Add(&quot;port descr..&quot;)
-$config.SystemDescription.Add(&quot;sys descr..&quot;)
-$config.SystemName = &quot;my machine&quot;
+$config.PortDescription.Add(&quot;my new port descr..&quot;)
+
+# Add operating system
+$config.SystemDescription.Add(&quot;OS: &quot; + $operatingsystem)
+
+# Add serial number
+$config.SystemDescription.Add(&quot;SN: &quot; + $serialnumber)
+
+# Add processor ID
+$config.SystemDescription.Add(&quot;ID: &quot; + $processorid)
+
+# Add users logged in
+$config.SystemDescription.Add(&quot;U: &quot; + $logged_in_users_list)
+
+# Add uptime
+$config.SystemDescription.Add(&quot;Up: &quot; + $uptime)
+
+$config.SystemName.Add(&quot;my machine&quot;)
 $config.Separator = &quot;|&quot;
 
 # Must always return WinLLDPService.Configuration object
 Return $config
 </code></pre>
 
-<p>For information how to get details about machine see <a href="https://docs.microsoft.com/en-us/powershell/">PowerShell Documentation</a></p>
+<p>It is recommended to use PowerShell <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/import-module">modules</a> and caching non-realtime information such as operating system name.</p>
 
-<h2 id="example-deployment">Example deployment</h2>
+<p>So the above script becomes something like this with modules:</p>
 
-<p>There are 10 machines. Every machine has <code>$Env:LOCALAPPDATA\WinLLDPService\Configuration.default.ps1</code>. Let&rsquo;s say 3 are virtual machines. For those machines you could create <code>$Env:LOCALAPPDATA\WinLLDPService\Configuration.ps1</code> which reports additional information.</p>
+<pre><code>Import-Module MyCustomModule
+Import-Module MyCustomModuleOther
+
+# Initialize WinLLDPService.Configuration object
+$config = New-Object WinLLDPService.Configuration
+
+$config.PortDescription.Add(&quot;my new port descr..&quot;)
+
+# Add operating system
+$config.SystemDescription.Add(Get-OperatingSystem)
+
+# Add serial number
+$config.SystemDescription.Add(Get-SerialNumber)
+
+# Add processor ID
+$config.SystemDescription.Add(Get-ProcessorId)
+
+# Add users logged in
+$config.SystemDescription.Add(Get-LoggedInUsers)
+
+# Add uptime
+$config.SystemDescription.Add(Get-Uptime)
+
+$config.SystemName.Add(&quot;my machine&quot;)
+$config.Separator = &quot;|&quot;
+
+# Must always return WinLLDPService.Configuration object
+Return $config
+</code></pre>
+
+<p>This way you can simply just update the module(s)/script(s) and keep the configuration file the same for all machines.</p>
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css" integrity="sha256-sCl5PUOGMLfFYctzDW3MtRib0ctyUvI9Qsmq2wXOeBY=" crossorigin="anonymous" />
@@ -424,8 +566,9 @@ Return $config
 <li><a href="#tested-with">Tested with</a></li>
 <li><a href="#configuring">Configuring</a>
 <ul>
-<li><a href="#example-configuration-file">Example configuration file</a></li>
 <li><a href="#example-deployment">Example deployment</a></li>
+<li><a href="#writing-configuration">Writing configuration</a></li>
+<li><a href="#example-configuration-file">Example configuration file</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -438,21 +581,21 @@ Return $config
 			<li>
 					<span class="doc-list-category">Projects</span>
 				<ul>
-					<li>
-						<span class="active">WinLLDPService</span>
-						</li>
-				
-					<li><a href="/projects/buildingnas/">Building NAS</a>
-					</li>
-				
-					<li><a href="/projects/hdsize/">Hard disk space loss</a>
+					<li><a href="/projects/uptime/">Uptime</a>
 					</li>
 				
 					<li><a href="/projects/screenjournal/">ScreenJournal</a>
 					</li>
 				
-					<li><a href="/projects/uptime/">Uptime</a>
+					<li><a href="/projects/hdsize/">Hard disk space loss</a>
 					</li>
+				
+					<li><a href="/projects/buildingnas/">Building NAS</a>
+					</li>
+				
+					<li>
+						<span class="active">WinLLDPService</span>
+						</li>
 				
 				</ul>
 			</li>
